@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
   "dependencies": {
     "graphql-yoga": "^1.14.12",
     "node-fetch": "^2.2.0"
