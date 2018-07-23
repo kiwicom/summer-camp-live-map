@@ -9,7 +9,7 @@ class Index extends Component {
     return (
       <AppQueryRenderer 
         query={graphql`
-          query IndexQuery {
+          query pagesQuery {
             flights(first: 2) {
               id
               location {
