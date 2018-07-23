@@ -2,18 +2,18 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import {NavigationActions, NavigationNavigatorProps} from 'react-navigation';
-import {Button} from 'react-native';
+import { NavigationActions } from 'react-navigation';
+import { Button } from 'react-native';
 
 const NavigateStatsAction = NavigationActions.navigate({
-  routeName: 'Stats'
+  routeName: 'Stats',
 });
 
 const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #F5FCFF;
+  background-color: #f5fcff;
 `;
 
 const MapText = styled.Text`
@@ -22,15 +22,14 @@ const MapText = styled.Text`
   margin: 10px;
 `;
 
-type MapSceneProps = NavigationNavigatorProps;
-export class Map extends React.Component<MapSceneProps> {
-  static navigationOptions = (props: MapSceneProps) => ({
+export default class Map extends React.Component {
+  static navigationOptions = props => ({
     headerRight: (
       <Button
         title="Stats"
         onPress={() => props.navigation.dispatch(NavigateStatsAction)}
       />
-    )
+    ),
   });
 
   render() {

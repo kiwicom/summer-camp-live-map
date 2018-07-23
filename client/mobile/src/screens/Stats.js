@@ -7,7 +7,7 @@ const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  background-color: #F5FCFF;
+  background-color: #f5fcff;
 `;
 
 const StatsText = styled.Text`
@@ -16,13 +16,10 @@ const StatsText = styled.Text`
   margin: 10px;
 `;
 
-type Props = {};
-export class Stats extends React.Component<Props> {
-  render() {
-    return (
-      <Container>
-        <StatsText>Stats</StatsText>
-      </Container>
-    );
-  }
-}
+const Stats = () => (
+  <Container>
+    <StatsText>Stats</StatsText>
+  </Container>
+);
+
+export default Stats;
