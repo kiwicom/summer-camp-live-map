@@ -1,5 +1,6 @@
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 import config from '../config'
+import fetch from 'isomorphic-unfetch'
 
 function fetchQuery(operation, variables) {
   return fetch(config.relay.endpointUrl, {
