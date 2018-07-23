@@ -3,9 +3,9 @@ import { graphql } from 'react-relay'
 import AppQueryRenderer from '../components/query-renderer'
 
 class Index extends Component {
-  static displayName = `Index`
+  static displayName = `Index`;
 
-  render (props) {
+  render(props) {
     return (
       <AppQueryRenderer 
         query={graphql`
