@@ -24,8 +24,8 @@ const typeDefs = `
 
   type Flight {
     id: ID!
-#    location: Coordinates
-#    orientation: Float
+    location: Coordinates
+    orientation: Float
   }
 
   type Stats {
@@ -42,6 +42,11 @@ const typeDefs = `
   type Counter {
     value: Int
   }
+
+  type Coordinates {
+    lat: Float
+    lng: Float
+  }
 `;
 
 let COUNTER = 0;
@@ -53,6 +58,11 @@ const resolvers = {
       return data.flights.slice(undefined, args.first).map(flight => {
         return {
           id: flight.id,
+          orientation: flight.orientation,
+          location: {
+            lat: flight.location.coordinates[0],
+            lng: flight.location.coordinates[1]
+          }
         }
       })
     },
