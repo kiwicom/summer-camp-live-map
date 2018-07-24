@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "babel-plugin-relay": "^1.4.1",
+    "babel-plugin-transform-flow-comments": "^6.22.0",
     "graphcool": "^1.2.1",
     "graphql-cli": "^1.0.0-beta.4",
     "relay-compiler": "^1.5.0"

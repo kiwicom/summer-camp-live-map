@@ -1,43 +1,38 @@
-import React, { Component } from 'react'
-import { graphql } from 'react-relay'
-import AppQueryRenderer from '../components/query-renderer'
+// @flow
 
-class Index extends Component {
-  static displayName = `Index`;
+import React from 'react';
+import { graphql } from 'react-relay';
+import AppQueryRenderer from '../components/query-renderer';
 
-  render(props) {
-    return (
-      <AppQueryRenderer 
-        query={graphql`
-          query pagesQuery {
-            flights(first: 2) {
-              id
-              location {
-                lat
-                lng
-              }
-              orientation
-            }
-            error
-            stats {
-              activePAX: activePassengers
-              activeFlights
-              topNationalities {
-                code
-                passengers
-              }
-              flightsTakingOffSoon
-              flightsLandingSoon
-              mostOccupiedFlight
-            }
+
+const Index = () => (
+  <AppQueryRenderer
+    query={graphql`
+      query pagesQuery {
+        flights(first: 2) {
+          id
+          location {
+            lat
+            lng
           }
-        `}
-        render={(props) => {
-          return <pre>{JSON.stringify(props, null, 2)}</pre>
-        }}
-      />
-    )
-  }
-}
+          orientation
+        }
+        error
+        stats {
+          activePAX: activePassengers
+          activeFlights
+          topNationalities {
+            code
+            passengers
+          }
+          flightsTakingOffSoon
+          flightsLandingSoon
+          mostOccupiedFlight
+        }
+      }
+    `}
+    render={props => <pre>{JSON.stringify(props, null, 2)}</pre>}
+  />
+);
 
-export default Index
+export default Index;
