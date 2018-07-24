@@ -41,7 +41,7 @@ const StatsView = ({ data }: Props) => {
     <Container>
       <Header>Top countries</Header>
       {data.topNationalities.map(nationality => (
-        <NationalityInfo {...nationality} />
+        <NationalityInfo key={nationality.code} {...nationality} />
       ))}
       <div>Taking off soon: {flightsTakingOffSoon}</div>
       <div>Landing soon: {flightsLandingSoon}</div>
@@ -68,7 +68,9 @@ const StatsContainer = createFragmentContainer(
 );
 
 const Page = () => (
-  <App render={({ stats }) => <StatsContainer data={stats} />} />
+  <App
+    render={({ stats }: { stats: Stats }) => <StatsContainer data={stats} />}
+  />
 );
 
 export default Page;
