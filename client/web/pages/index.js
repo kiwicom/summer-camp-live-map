@@ -1,26 +1,40 @@
-import React, { Component } from 'react';
-import { graphql } from 'react-relay';
-import withData from '../lib/withData';
-import BlogPosts from '../components/BlogPosts';
+import React, { Component } from 'react'
+import { graphql } from 'react-relay'
+import AppQueryRenderer from '../components/query-renderer'
 
 class Index extends Component {
   static displayName = `Index`;
 
   render(props) {
     return (
-      <div>
-        <BlogPosts viewer={this.props.viewer} />
-      </div>
-    );
+      <AppQueryRenderer 
+        query={graphql`
+          query pagesQuery {
+            flights(first: 2) {
+              id
+              location {
+                lat
+                lng
+              }
+              orientation
+            }
+            error
+            stats {
+              activePAX: activePassengers
+              activeFlights
+              topNationalities {
+                code
+                passengers
+              }
+            }
+          }
+        `}
+        render={(props) => {
+          return <pre>{JSON.stringify(props, null, 2)}</pre>
+        }}
+      />
+    )
   }
 }
 
-export default withData(Index, {
-  query: graphql`
-    query pages_indexQuery {
-      viewer {
-        ...BlogPosts_viewer
-      }
-    }
-  `,
-});
+export default Index

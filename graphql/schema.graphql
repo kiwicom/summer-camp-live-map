@@ -1,0 +1,35 @@
+schema {
+  query: RootQuery
+}
+
+type RootQuery {
+  flights(first: Int): [Flight]
+  stats: Stats
+  error: Int
+}
+
+type Flight {
+  id: ID!
+  location: Coordinates
+  orientation: Float
+}
+
+type Stats {
+  activePassengers: Int
+  activeFlights: Int
+  topNationalities: [Nationality]
+}
+
+type Nationality {
+  code: String
+  passengers: Int
+}
+
+type Counter {
+  value: Int
+}
+
+type Coordinates {
+  lat: Float
+  lng: Float
+}
