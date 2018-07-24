@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from 'react';
 import { graphql } from 'react-relay';
 import AppQueryRenderer from '../../components/query-renderer';
 
 type Props = {
-  render(props: mixed): mixed,
+  render(props: {}): React.Node,
 };
 
 const App = (props: Props) => (
