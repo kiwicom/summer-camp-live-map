@@ -1,5 +1,6 @@
 schema {
   query: RootQuery
+  subscription: Subscription
 }
 
 type RootQuery {
@@ -25,11 +26,18 @@ type Nationality {
   passengers: Int
 }
 
-type Counter {
-  value: Int
-}
-
 type Coordinates {
   lat: Float
   lng: Float
 }
+
+# TODO: replace with reasonable implementation of subscription that app needs
+type Subscription {
+  counter: Counter
+}
+
+type Counter {
+  value: Int
+}
+
+
