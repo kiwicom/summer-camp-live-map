@@ -1,6 +1,7 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
-export const Container = styled.pre`
+export const Container = styled.div``;
 
-`
-
+export const Header = styled.div`
+  text-align: center;
+`;

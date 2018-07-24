@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 430a0c3cc04861ff4ddb19505b66d7c1
+ * @relayHash a1f5bf966b6e51392ada05b7c631f039
  */
 
 /* eslint-disable */
@@ -51,6 +51,9 @@ fragment stats on Stats {
     code
     passengers
   }
+  flightsTakingOffSoon
+  flightsLandingSoon
+  mostOccupiedFlight
 }
 */
 
@@ -124,7 +127,7 @@ return {
   "operationKind": "query",
   "name": "appQuery",
   "id": null,
-  "text": "query appQuery {\n  flights(first: 2) {\n    id\n    location {\n      lat\n      lng\n    }\n    orientation\n  }\n  error\n  stats {\n    ...stats\n  }\n}\n\nfragment stats on Stats {\n  activeFlights\n  activePassengers\n  topNationalities {\n    code\n    passengers\n  }\n}\n",
+  "text": "query appQuery {\n  flights(first: 2) {\n    id\n    location {\n      lat\n      lng\n    }\n    orientation\n  }\n  error\n  stats {\n    ...stats\n  }\n}\n\nfragment stats on Stats {\n  activeFlights\n  activePassengers\n  topNationalities {\n    code\n    passengers\n  }\n  flightsTakingOffSoon\n  flightsLandingSoon\n  mostOccupiedFlight\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -207,6 +210,27 @@ return {
                 "storageKey": null
               }
             ]
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "flightsTakingOffSoon",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "flightsLandingSoon",
+            "args": null,
+            "storageKey": null
+          },
+          {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "mostOccupiedFlight",
+            "args": null,
+            "storageKey": null
           }
         ]
       }

@@ -17,6 +17,9 @@ export type stats = {|
     +code: ?string,
     +passengers: ?number,
   |}>,
+  +flightsTakingOffSoon: ?number,
+  +flightsLandingSoon: ?number,
+  +mostOccupiedFlight: ?string,
   +$refType: stats$ref,
 |};
 */
@@ -67,9 +70,30 @@ const node/*: ConcreteFragment*/ = {
           "storageKey": null
         }
       ]
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "flightsTakingOffSoon",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "flightsLandingSoon",
+      "args": null,
+      "storageKey": null
+    },
+    {
+      "kind": "ScalarField",
+      "alias": null,
+      "name": "mostOccupiedFlight",
+      "args": null,
+      "storageKey": null
     }
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '073ccf92306b6163b704e36dbfb750e5';
+(node/*: any*/).hash = 'db13f4381dfe2bc244cef8e52bf3dfaf';
 module.exports = node;

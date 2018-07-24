@@ -26,6 +26,9 @@ class Index extends Component {
                 code
                 passengers
               }
+              flightsTakingOffSoon
+              flightsLandingSoon
+              mostOccupiedFlight
             }
           }
         `}

@@ -1,13 +1,27 @@
-import React from 'react'
-import { Container } from './styled'
+import React from "react";
+import { Container, Header } from "./styled";
 
-
-function StatsView(props) {
+function Nationality({ code, passengers }) {
   return (
-    <Container>
-      {JSON.stringify(props.data, null, 2)}
-    </Container>
-  )
+    <div>
+      {code} : {passengers}
+    </div>
+  );
 }
 
-export default StatsView
+function StatsView({ data }) {
+  const { flightsTakingOffSoon, flightsLandingSoon, mostOccupiedFlight } = data
+  return (
+    <Container>
+      <Header>Top countries</Header>
+      {data.topNationalities.map(nationality => (
+        <Nationality {...nationality} />
+      ))}
+      <div>Taking off soon: {flightsTakingOffSoon}</div>
+      <div>Landing soon: {flightsLandingSoon}</div>
+      <div>Most occupied flight: {mostOccupiedFlight}</div>
+    </Container>
+  );
+}
+
+export default StatsView;

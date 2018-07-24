@@ -60,7 +60,10 @@ const resolvers = {
         topNationalities: data.topNationalities.map(nationality => ({
           code: nationality.nationalityCode,
           passengers: nationality.count
-        }))
+        })),
+        flightsTakingOffSoon: data.takingOffCount,
+        flightsLandingSoon: data.landingCount,
+        mostOccupiedFlight: data.mostPaxInfo,
       }
     },
     error: () => 'error example'
