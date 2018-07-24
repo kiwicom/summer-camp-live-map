@@ -4,7 +4,6 @@ import React from 'react';
 import { graphql } from 'react-relay';
 import AppQueryRenderer from '../components/query-renderer';
 
-
 const Index = () => (
   <AppQueryRenderer
     query={graphql`
