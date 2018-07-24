@@ -1,12 +1,12 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import { QueryRenderer } from 'react-relay';
 import environment from '../../util/environment';
 
 type Props = {|
   +query: string,
-  +render: (rendererProps: {}) => mixed,
+  +render: (rendererProps: {}) => React.Node,
 |};
 
 export default function AppQueryRenderer({ query, render }: Props) {

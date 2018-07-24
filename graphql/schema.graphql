@@ -19,6 +19,10 @@ type Stats {
   activePassengers: Int
   activeFlights: Int
   topNationalities: [Nationality]
+
+  flightsTakingOffSoon: Int
+  flightsLandingSoon: Int
+  mostOccupiedFlight: String
 }
 
 type Nationality {

@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 6e563191810be13683c82c0f4bc586f1
+ * @relayHash 5113b956aefc844e05dd97a64bcd4178
  */
 
 /* eslint-disable */
@@ -27,6 +27,9 @@ export type pagesQueryResponse = {|
       +code: ?string,
       +passengers: ?number,
     |}>,
+    +flightsTakingOffSoon: ?number,
+    +flightsLandingSoon: ?number,
+    +mostOccupiedFlight: ?string,
   |},
 |};
 */
@@ -50,6 +53,9 @@ query pagesQuery {
       code
       passengers
     }
+    flightsTakingOffSoon
+    flightsLandingSoon
+    mostOccupiedFlight
   }
 }
 */
@@ -167,6 +173,27 @@ var v0 = [
             "storageKey": null
           }
         ]
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "flightsTakingOffSoon",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "flightsLandingSoon",
+        "args": null,
+        "storageKey": null
+      },
+      {
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "mostOccupiedFlight",
+        "args": null,
+        "storageKey": null
       }
     ]
   }
@@ -176,7 +203,7 @@ return {
   "operationKind": "query",
   "name": "pagesQuery",
   "id": null,
-  "text": "query pagesQuery {\n  flights(first: 2) {\n    id\n    location {\n      lat\n      lng\n    }\n    orientation\n  }\n  error\n  stats {\n    activePAX: activePassengers\n    activeFlights\n    topNationalities {\n      code\n      passengers\n    }\n  }\n}\n",
+  "text": "query pagesQuery {\n  flights(first: 2) {\n    id\n    location {\n      lat\n      lng\n    }\n    orientation\n  }\n  error\n  stats {\n    activePAX: activePassengers\n    activeFlights\n    topNationalities {\n      code\n      passengers\n    }\n    flightsTakingOffSoon\n    flightsLandingSoon\n    mostOccupiedFlight\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -195,5 +222,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '097b0d75abfa5ae5ed64a425d826dc44';
+(node/*: any*/).hash = '5399634091fc78daca5b090797279abc';
 module.exports = node;

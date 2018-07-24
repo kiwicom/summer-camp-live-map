@@ -24,6 +24,9 @@ const Index = () => (
             code
             passengers
           }
+          flightsTakingOffSoon
+          flightsLandingSoon
+          mostOccupiedFlight
         }
       }
     `}
