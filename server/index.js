@@ -4,10 +4,33 @@ const fs = require('fs')
 
 const PATH_TO_GRAPHQL_SCHEMA = '../graphql/schema.graphql'
 
+const cacheTime = 5 * 60 * 1000;
+
+let cachedData;
+let lastFetchTime;
+
 async function fetchData() {
-  console.warn('Calling API');
-  const rawResponse = await fetch('https://3gyucw6pqd.execute-api.eu-west-1.amazonaws.com/dev');
-  return rawResponse.json();
+  const timeDiff = Date.now() - lastFetchTime;
+
+  if (!cachedData || timeDiff >= cacheTime) {
+    console.warn('Calling API');
+
+    const rawResponse = await fetch('https://3gyucw6pqd.execute-api.eu-west-1.amazonaws.com/dev');
+
+    cachedData = rawResponse.json();
+
+    /**
+     * Could do here:
+     * pubsub.publish('NEW_DATA', { data: cachedData });
+     * Whenever we update cache and it's different.
+     */
+
+    lastFetchTime = Date.now();
+  } else {
+    console.log('Using cache', timeDiff);
+  }
+
+  return cachedData;
 }
 
 const typeDefs = fs.readFileSync(PATH_TO_GRAPHQL_SCHEMA, 'utf8')

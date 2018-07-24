@@ -30,7 +30,7 @@ class Index extends Component {
           }
         `}
         render={(props) => {
-          return <div>{JSON.stringify(props)}</div>
+          return <pre>{JSON.stringify(props, null, 2)}</pre>
         }}
       />
     )
