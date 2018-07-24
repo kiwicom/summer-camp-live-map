@@ -9,13 +9,20 @@ type Props = {|
   +render: (rendererProps: {}) => React.Node,
 |};
 
+type RenderProps = {
+  +error: {
+    message: string,
+  },
+  props: {},
+};
+
 export default function AppQueryRenderer({ query, render }: Props) {
   return (
     <QueryRenderer
       environment={environment}
       query={query}
       variables={{}}
-      render={({ error, props: rendererProps }) => {
+      render={({ error, props: rendererProps }: RenderProps) => {
         if (error) {
           return <div>{error.message}</div>;
         }
