@@ -1,7 +1,7 @@
 const { GraphQLServer, PubSub } = require('graphql-yoga');
 const fetch = require('node-fetch');
 
-const cacheTime = 30 * 1000;
+const cacheTime = 5 * 60 * 1000;
 
 let cachedData;
 let lastFetchTime;
