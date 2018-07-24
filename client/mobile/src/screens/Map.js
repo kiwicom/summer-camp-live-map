@@ -22,12 +22,18 @@ const MapText = styled.Text`
   margin: 10px;
 `;
 
+type NavigationProps = {
+  +navigation: {
+    +dispatch: (action: {}) => mixed,
+  },
+};
+
 export default class Map extends React.Component<{}> {
-  static navigationOptions = (props: any) => ({
+  static navigationOptions = ({ navigation }: NavigationProps) => ({
     headerRight: (
       <Button
         title="Stats"
-        onPress={() => props.navigation.dispatch(NavigateStatsAction)}
+        onPress={() => navigation.dispatch(NavigateStatsAction)}
       />
     ),
   });

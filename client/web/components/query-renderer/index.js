@@ -4,10 +4,10 @@ import React from 'react';
 import { QueryRenderer } from 'react-relay';
 import environment from '../../util/environment';
 
-type Props = {
-  query: string,
-  render: (rendererProps: {}) => mixed,
-};
+type Props = {|
+  +query: string,
+  +render: (rendererProps: {}) => mixed,
+|};
 
 export default function AppQueryRenderer({ query, render }: Props) {
   return (
