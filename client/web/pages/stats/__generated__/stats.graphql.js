@@ -12,7 +12,7 @@ import type { FragmentReference } from "relay-runtime";
 declare export opaque type stats$ref: FragmentReference;
 export type stats = {|
   +activeFlights: ?number,
-  +activePAX: ?number,
+  +activePassengers: ?number,
   +topNationalities: ?$ReadOnlyArray<?{|
     +code: ?string,
     +passengers: ?number,
@@ -38,7 +38,7 @@ const node/*: ConcreteFragment*/ = {
     },
     {
       "kind": "ScalarField",
-      "alias": "activePAX",
+      "alias": null,
       "name": "activePassengers",
       "args": null,
       "storageKey": null
@@ -71,5 +71,5 @@ const node/*: ConcreteFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = '3d30712d9c0c6a8a4844eb597b9f0245';
+(node/*: any*/).hash = '073ccf92306b6163b704e36dbfb750e5';
 module.exports = node;

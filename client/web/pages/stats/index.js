@@ -1,14 +1,13 @@
-import React, { Component } from 'react'
-import AppQueryRenderer from '../../components/query-renderer'
+import React from 'react'
 import { createFragmentContainer, graphql } from 'react-relay'
 
 import StatsView from '../../components/stats-view'
-import App from '../'
+import App from '../app'
 
-const StatsPage = createFragmentContainer(StatsView, graphql`
+const StatsContainer = createFragmentContainer(StatsView, graphql`
   fragment stats on Stats {
     activeFlights
-    activePAX: activePassengers
+    activePassengers
     topNationalities {
       code
       passengers
@@ -16,19 +15,14 @@ const StatsPage = createFragmentContainer(StatsView, graphql`
   }
 `)
 
-class Page extends Component {
-  static displayName = `StatsPage`;
-
-  render(props) {
-    return (
-      <App 
-        render={(props) => {
-          return <StatsPage data={props.stats} />
-        }}
-      />
-    )
-  }
+function Page() {
+  return (
+    <App 
+      render={props => {
+        return <StatsContainer data={props.stats} />
+      }}
+    />
+  )
 }
-
 
 export default Page
