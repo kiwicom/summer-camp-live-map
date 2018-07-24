@@ -1,5 +1,8 @@
-const { GraphQLServer, PubSub } = require('graphql-yoga');
-const fetch = require('node-fetch');
+const { GraphQLServer, PubSub } = require('graphql-yoga')
+const fetch = require('node-fetch')
+const fs = require('fs')
+
+const PATH_TO_GRAPHQL_SCHEMA = '../graphql/schema.graphql'
 
 async function fetchData() {
   console.warn('Calling API');
@@ -7,52 +10,12 @@ async function fetchData() {
   return rawResponse.json();
 }
 
-const typeDefs = `
-  type Query {
-    flights(first: Int): [Flight]
-    stats: Stats
-    error: Int
-  }
-
-  type Subscription {
-    counter: Counter
-  }
-
-  type Mutation {
-    increaseCounter: Counter
-  }
-
-  type Flight {
-    id: ID!
-    location: Coordinates
-    orientation: Float
-  }
-
-  type Stats {
-    activePassengers: Int
-    activeFlights: Int
-    topNationalities: [Nationality]
-  }
-
-  type Nationality {
-    code: String
-    passengers: Int
-  }
-
-  type Counter {
-    value: Int
-  }
-
-  type Coordinates {
-    lat: Float
-    lng: Float
-  }
-`;
+const typeDefs = fs.readFileSync(PATH_TO_GRAPHQL_SCHEMA, 'utf8')
 
 let COUNTER = 0;
 
 const resolvers = {
-  Query: {
+  RootQuery: {
     flights: async (parent, args) => {
       const data = await fetchData();
       return data.flights.slice(undefined, args.first).map(flight => {
@@ -90,19 +53,7 @@ const resolvers = {
       },
     }
   },
-
-  Mutation: {
-    increaseCounter: {
-      resolve: () => {
-        COUNTER += 1;
-        pubsub.publish('COUNTER_TOPIC', { value: COUNTER });
-        return {
-          value: COUNTER
-        }
-      }
-    }
-  }
-};
+}
 
 const pubsub = new PubSub();
 const server = new GraphQLServer({ typeDefs, resolvers, context: { pubsub } });
