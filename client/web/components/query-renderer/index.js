@@ -1,21 +1,22 @@
-import React from 'react'
-import { QueryRenderer } from 'react-relay'
-import environment from '../../util/environment'
+import React from 'react';
+import { QueryRenderer } from 'react-relay';
+import environment from '../../util/environment';
 
 export default function AppQueryRenderer(props) {
   return (
     <QueryRenderer
+      {...props}
       environment={environment}
-      query={props.query}
       variables={{}}
-      render={({error, props: rendererProps }) => {
+      render={({ error, props: rendererProps }) => {
         if (error) {
-          return <div>{error.message}</div>;
-        } else if (rendererProps) {
-          return props.render(rendererProps)
+          return <props.ErrorMessage error={error} />;
         }
-        return <div>Loading...</div>
+        if (rendererProps) {
+          return props.render(rendererProps);
+        }
+        return <props.BlankSlate />;
       }}
     />
-  )
+  );
 }

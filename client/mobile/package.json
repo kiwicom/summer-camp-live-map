@@ -4,20 +4,30 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "relay": "relay-compiler --src ./ --exclude '**/.next/**' '**/node_modules/**' '**/test/**'  '**/__generated__/**' --exclude './schema/**' --schema ../../graphql/schema.graphql"
   },
   "dependencies": {
+    "isomorphic-unfetch": "^2.1.0",
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-navigation": "^2.9.0",
+    "react-relay": "^1.6.0",
+    "relay-runtime": "^1.6.0",
     "styled-components": "^3.3.3"
   },
   "devDependencies": {
     "babel-jest": "23.4.0",
+    "babel-plugin-relay": "^1.6.0",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react-native": "^5",
+    "graphcool": "^0.11.6",
+    "graphql": "^0.13.2",
+    "graphql-cli": "^2.16.4",
     "jest": "23.4.1",
-    "react-test-renderer": "16.4.1"
+    "metro-bundler": "^0.22.1",
+    "react-test-renderer": "16.4.1",
+    "relay-compiler": "^1.6.0"
   },
   "jest": {
     "preset": "react-native"

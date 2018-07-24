@@ -1,13 +1,16 @@
-import React, { Component } from 'react'
-import { graphql } from 'react-relay'
-import AppQueryRenderer from '../components/query-renderer'
+import React, { Component } from 'react';
+import { graphql } from 'react-relay';
+import AppQueryRenderer from '../components/query-renderer';
+
+const ErrorMessage = error => <div>{error.message}</div>;
+const BlankSlate = () => <div>Loading...</div>;
 
 class Index extends Component {
   static displayName = `Index`;
 
   render(props) {
     return (
-      <AppQueryRenderer 
+      <AppQueryRenderer
         query={graphql`
           query pagesQuery {
             flights(first: 2) {
@@ -29,12 +32,12 @@ class Index extends Component {
             }
           }
         `}
-        render={(props) => {
-          return <pre>{JSON.stringify(props, null, 2)}</pre>
-        }}
+        render={props => <pre>{JSON.stringify(props, null, 2)}</pre>}
+        ErrorMessage={ErrorMessage}
+        BlankSlate={BlankSlate}
       />
-    )
+    );
   }
 }
 
-export default Index
+export default Index;
