@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
+import { Text } from 'react-native'; // eslint-disable-line
 import App from '../app';
 import { Container, Header, NationalityContainer } from './styled';
 
@@ -35,7 +36,7 @@ const NationalityInfo = ({
   </NationalityContainer>
 );
 
-const StatsView = ({ data }: Props) => {
+export const StatsView = ({ data }: Props) => {
   const { flightsTakingOffSoon, flightsLandingSoon, mostOccupiedFlight } = data;
   return (
     <Container>
@@ -43,14 +44,14 @@ const StatsView = ({ data }: Props) => {
       {data.topNationalities.map(nationality => (
         <NationalityInfo key={nationality.code} {...nationality} />
       ))}
-      <div>Taking off soon: {flightsTakingOffSoon}</div>
-      <div>Landing soon: {flightsLandingSoon}</div>
-      <div>Most occupied flight: {mostOccupiedFlight}</div>
+      <Text>Taking off soon: {flightsTakingOffSoon}</Text>
+      <Text>Landing soon: {flightsLandingSoon}</Text>
+      <Text>Most occupied flight: {mostOccupiedFlight}</Text>
     </Container>
   );
 };
 
-const StatsContainer = createFragmentContainer(
+export const StatsContainer = createFragmentContainer(
   StatsView,
   graphql`
     fragment stats on Stats {

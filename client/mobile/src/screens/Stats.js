@@ -2,24 +2,13 @@
 
 import React from 'react';
 import styled from 'styled-components';
-
-const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  background-color: #f5fcff;
-`;
-
-const StatsText = styled.Text`
-  font-size: 20;
-  text-align: center;
-  margin: 10px;
-`;
+import { StatsContainer, StatsView } from '../../../web/pages/stats';
+import App from '../../../web/pages/app';
 
 const Stats = () => (
-  <Container>
-    <StatsText>Stats</StatsText>
-  </Container>
+  <App
+    render={({ stats }: { stats: Stats }) => <StatsContainer data={stats} />}
+  />
 );
 
 export default Stats;
