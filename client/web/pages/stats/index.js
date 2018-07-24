@@ -36,7 +36,7 @@ const NationalityInfo = ({
   </NationalityContainer>
 );
 
-const StatsView = ({ data }: Props) => {
+export const StatsView = ({ data }: Props) => {
   const { flightsTakingOffSoon, flightsLandingSoon, mostOccupiedFlight } = data;
   return (
     <Container>
@@ -51,7 +51,7 @@ const StatsView = ({ data }: Props) => {
   );
 };
 
-const StatsContainer = createFragmentContainer(
+export const StatsContainer = createFragmentContainer(
   StatsView,
   graphql`
     fragment stats on Stats {
