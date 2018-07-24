@@ -7,7 +7,9 @@ let cachedData;
 let lastFetchTime;
 
 async function fetchData() {
-  if (!cachedData || Date.now() - lastFetchTime >= cacheTime) {
+  const timeDiff = Date.now() - lastFetchTime;
+
+  if (!cachedData || timeDiff >= cacheTime) {
     console.warn('Calling API');
 
     const rawResponse = await fetch('https://3gyucw6pqd.execute-api.eu-west-1.amazonaws.com/dev');
@@ -22,7 +24,7 @@ async function fetchData() {
 
     lastFetchTime = Date.now();
   } else {
-    console.log('Using cache', Date.now() - lastFetchTime);
+    console.log('Using cache', timeDiff);
   }
 
   return cachedData;
