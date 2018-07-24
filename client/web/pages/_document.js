@@ -15,7 +15,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <html lang="en">
+      <html lang='en'>
         <Head>
           <title>My page</title>
         </Head>
