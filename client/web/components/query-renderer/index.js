@@ -2,7 +2,8 @@
 
 import * as React from 'react';
 import { QueryRenderer } from 'react-relay';
-import { Text } from 'react-native'; // eslint-disable-line
+import { Text, View, ActivityIndicator } from 'react-native'; // eslint-disable-line
+import styled from 'styled-components';
 import environment from '../../util/environment';
 
 type Props = {|
@@ -17,6 +18,11 @@ type RenderProps = {
   props: {}
 };
 
+const SpinnerContainer = styled(View)`
+  flex: 1;
+  justify-content: center;
+`;
+
 export default function AppQueryRenderer(props: Props): React.Node {
   return (
     <QueryRenderer
@@ -30,7 +36,14 @@ export default function AppQueryRenderer(props: Props): React.Node {
         if (rendererProps) {
           return props.render(rendererProps);
         }
-        return <Text>Loading...</Text>;
+        return (
+          <SpinnerContainer>
+            <ActivityIndicator
+              size="small"
+              animating
+            />
+          </SpinnerContainer>
+        );
       }}
     />
   );

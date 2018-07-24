@@ -15,5 +15,23 @@ module.exports = {
         systemvars: true,
       }),
     ],
+
+    module: {
+      ...config.module,
+
+      rules: [
+        ...config.module.rules,
+
+        {
+          test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|ico)$/,
+          use: {
+            loader: 'url-loader',
+            options: {
+              limit: 100000,
+            },
+          },
+        }
+      ],
+    },
   }),
 };

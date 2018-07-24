@@ -1,5 +1,6 @@
 // @flow
-import React from 'react';
+
+import * as React from 'react';
 import App from '../../pages/app';
 
 // todo - revise flow types
@@ -8,7 +9,7 @@ type Coordinates = {|
   +lng: number,
 |};
 
-type Flight = {|
+export type Flight = {|
   +id: string,
   +location: Coordinates,
   +orientation: number,
@@ -19,7 +20,7 @@ type FlightsData = {|
 |};
 
 type Props = {
-  +data: FlightsArray,
+  +data: Flight[],
 };
 
 export const FlightsContext = React.createContext();
@@ -47,11 +48,11 @@ const FlightsContainer = createFragmentContainer(
 
 // <FlightsWrap data={flights} />
 
-const Flights = ({ children }) => {
+const Flights = ({ children }: { children: React.Node }) => {
   const wrapChild = children; // todo - not ideal
   return (
     <App
-      render={({ flights }: { flights: FlightsData }) => (
+      render={({ flights }: { flights: Flight[] }) => (
         <FlightsContext.Provider value={flights}>
           {wrapChild}
         </FlightsContext.Provider>

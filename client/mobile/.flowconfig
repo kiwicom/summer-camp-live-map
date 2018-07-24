@@ -28,6 +28,8 @@ node_modules/react-native/flow/
 node_modules/react-native/flow-github/
 
 [options]
+module.name_mapper.extension='ico' -> '<PROJECT_ROOT>/flow/ImageModuleStub.js.flow'
+
 emoji=true
 
 module.system=haste

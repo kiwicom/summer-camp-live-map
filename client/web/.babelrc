@@ -9,6 +9,7 @@
       "alias": {
         "^react-native$": "react-native-web"
       }
-    }]
+    }],
+    ["import", { "libraryName": "antd", "style": false }]
   ]
 }
