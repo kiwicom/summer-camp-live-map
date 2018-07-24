@@ -7,8 +7,15 @@ import environment from '../../util/environment';
 
 type Props = {|
   +query: string,
-  +render: (rendererProps: {}) => mixed,
+  +render: (rendererProps: {}) => React.Node
 |};
+
+type RenderProps = {
+  +error: {
+    message: string
+  },
+  props: {}
+};
 
 export default function AppQueryRenderer(props: Props): React.Node {
   return (
@@ -16,7 +23,7 @@ export default function AppQueryRenderer(props: Props): React.Node {
       {...props}
       environment={environment}
       variables={{}}
-      render={({ error, props: rendererProps }) => {
+      render={({ error, props: rendererProps }: RenderProps) => {
         if (error) {
           return <Text>{error.message}</Text>;
         }
