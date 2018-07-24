@@ -17,11 +17,16 @@
     "isomorphic-unfetch": "^2.0.0",
     "next": "latest",
     "react": "^16.2.0",
+    "react-art": "^16.4.1",
     "react-dom": "^16.2.0",
-    "react-relay": "^1.5.0"
+    "react-native-web": "^0.8.9",
+    "react-relay": "^1.5.0",
+    "relay-runtime": "^1.6.0"
   },
   "devDependencies": {
-    "babel-plugin-relay": "^1.4.1",    
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-relay": "^1.4.1",
+    "babel-plugin-transform-flow-comments": "^6.22.0",
     "graphcool": "^1.2.1",
     "graphql-cli": "^1.0.0-beta.4",
     "relay-compiler": "^1.5.0"

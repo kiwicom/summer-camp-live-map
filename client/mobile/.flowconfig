@@ -20,6 +20,7 @@
 .*/node_modules/metro/.*
 
 [include]
+../web
 
 [libs]
 node_modules/react-native/Libraries/react-native/react-native-interface.js
@@ -43,6 +44,7 @@ module.system.haste.paths.blacklist=.*/__tests__/.*
 module.system.haste.paths.blacklist=.*/__mocks__/.*
 module.system.haste.paths.blacklist=<PROJECT_ROOT>/node_modules/react-native/Libraries/Animated/src/polyfills/.*
 module.system.haste.paths.whitelist=<PROJECT_ROOT>/node_modules/react-native/Libraries/.*
+module.system.haste.paths.whitelist=<PROJECT_ROOT>../web/*
 
 munge_underscores=true
 
@@ -64,4 +66,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
 [version]
-^0.75.0
+^0.77.0

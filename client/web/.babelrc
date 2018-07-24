@@ -3,6 +3,12 @@
     "next/babel"
   ],
   "plugins": [
-    "relay"
+    "relay",
+    "transform-flow-comments",
+    ["module-resolver", {
+      "alias": {
+        "^react-native$": "react-native-web"
+      }
+    }]
   ]
 }
