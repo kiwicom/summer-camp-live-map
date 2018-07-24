@@ -1,9 +1,17 @@
 // @flow
 
+import Relay, { graphql } from 'react-relay';
 import React from 'react';
 import styled from 'styled-components';
 import { NavigationActions } from 'react-navigation';
 import { Button } from 'react-native';
+import Mapbox from '@mapbox/react-native-mapbox-gl';
+import App from '../../../web/pages/app';
+import { type Map } from './__generated__/Map.graphql';
+
+Mapbox.setAccessToken(
+  'pk.eyJ1Ijoiam9zZWR1IiwiYSI6ImNqanppbzA3aDI3MjUzd282Y2VlbGc4MjIifQ.HBadGO4LnP3CUvqz6Hs-RA'
+);
 
 const NavigateStatsAction = NavigationActions.navigate({
   routeName: 'Stats',
@@ -11,16 +19,22 @@ const NavigateStatsAction = NavigationActions.navigate({
 
 const Container = styled.View`
   flex: 1;
-  justify-content: center;
-  align-items: center;
   background-color: #f5fcff;
 `;
 
-const MapText = styled.Text`
-  font-size: 20;
-  text-align: center;
-  margin: 10px;
+const StyledMap = styled(Mapbox.MapView)`
+  flex: 1;
 `;
+
+const styles = Mapbox.StyleSheet.create({
+  icon: {
+    iconImage: 'airport-15',
+    iconSize: 0.75,
+    iconRotate: Mapbox.StyleSheet.identity('rotation'),
+    iconRotationAlignment: 'map',
+    iconAllowOverlap: true,
+  },
+});
 
 type NavigationProps = {
   +navigation: {
@@ -28,7 +42,7 @@ type NavigationProps = {
   },
 };
 
-export default class Map extends React.Component<{}> {
+class MapComponent extends React.Component<{}> {
   static navigationOptions = ({ navigation }: NavigationProps) => ({
     headerRight: (
       <Button
@@ -39,10 +53,61 @@ export default class Map extends React.Component<{}> {
   });
 
   render() {
+    const { flights } = this.props;
+
+    const featureCollection = {
+      type: 'FeatureCollection',
+      features: flights.map(flight => ({
+        id: flight.id,
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [flight.location.lat, flight.location.lng],
+        },
+        properties: {
+          rotation: flight.orientation,
+        },
+      })),
+    };
+
     return (
       <Container>
-        <MapText>Maps</MapText>
+        <StyledMap
+          styleURL="mapbox://styles/mapbox/light-v9"
+          zoomLevel={4.5}
+          centerCoordinate={[2.178307, 41.389526]}
+        >
+          <Mapbox.ShapeSource id="Flights" shape={featureCollection}>
+            <Mapbox.SymbolLayer id="Plane" style={styles.icon} />
+          </Mapbox.ShapeSource>
+        </StyledMap>
       </Container>
     );
   }
 }
+
+export const MapContainer = Relay.createFragmentContainer(
+  MapComponent,
+  graphql`
+    fragment Map on RootQuery {
+      flights {
+        id
+        location {
+          lat
+          lng
+        }
+        orientation
+      }
+    }
+  `
+);
+
+const View = () => (
+  <App
+    render={({ flights }: Map) => (
+      <MapContainer data={null} flights={flights} />
+    )}
+  />
+);
+
+export default View;

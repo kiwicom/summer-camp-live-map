@@ -544,6 +544,13 @@
     request-promise "^4.1.1"
     yargs "^8.0.2"
 
+"@mapbox/react-native-mapbox-gl@^6.1.2-beta2":
+  version "6.1.2-beta2"
+  resolved "https://registry.yarnpkg.com/@mapbox/react-native-mapbox-gl/-/react-native-mapbox-gl-6.1.2-beta2.tgz#2140aab25ab5c31db1c91b17076d1573b93950e2"
+  dependencies:
+    "@turf/helpers" "4.6.0"
+    underscore "^1.8.3"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -554,6 +561,10 @@
 "@nodelib/fs.stat@^1.0.1":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.0.tgz#50c1e2260ac0ed9439a181de3725a0168d59c48a"
+
+"@turf/helpers@4.6.0":
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/@turf/helpers/-/helpers-4.6.0.tgz#12398733b8ae28420df6166fa44c7ee8ffd6414c"
 
 "@types/fs-extra@^4.0.2":
   version "4.0.8"
@@ -3709,8 +3720,8 @@ graphql-cli-prepare@1.4.19:
     lodash "4.17.5"
 
 graphql-cli@^2.16.4:
-  version "2.16.4"
-  resolved "https://registry.yarnpkg.com/graphql-cli/-/graphql-cli-2.16.4.tgz#46699ce8021cf1dc1bd585ac507372de63a6046e"
+  version "2.16.5"
+  resolved "https://registry.yarnpkg.com/graphql-cli/-/graphql-cli-2.16.5.tgz#0562dabe2249f933186821847f9242b5f9aabd4e"
   dependencies:
     adm-zip "0.4.7"
     apollo-codegen "^0.19.1"
@@ -3825,10 +3836,11 @@ graphql-playground-middleware-express@1.6.2:
     graphql-playground-html "1.5.5"
 
 graphql-request@^1.3.4, graphql-request@^1.4.0, graphql-request@^1.5.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-1.6.0.tgz#afe87cf2a336acabb0cc2a875900202eda89f412"
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/graphql-request/-/graphql-request-1.7.0.tgz#bb7c9e76fef3bf2ca4d42835f3df7df34bc9aa51"
   dependencies:
     cross-fetch "2.0.0"
+    graphql "^0.13.2"
 
 graphql-schema-linter@0.1.1:
   version "0.1.1"
@@ -8101,6 +8113,10 @@ unbzip2-stream@^1.0.9:
   dependencies:
     buffer "^3.0.1"
     through "^2.3.6"
+
+underscore@^1.8.3:
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.9.1.tgz#06dce34a0e68a7babc29b365b8e74b8925203961"
 
 unfetch@^3.1.0:
   version "3.1.0"
