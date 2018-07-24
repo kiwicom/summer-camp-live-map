@@ -8,15 +8,15 @@ const Navigation = createStackNavigator({
   Map: {
     screen: Map,
     navigationOptions: {
-      tabBarLabel: 'Map',
-    },
+      tabBarLabel: 'Map'
+    }
   },
   Stats: {
     screen: Stats,
     navigationOptions: {
-      tabBarLabel: 'Stats',
-    },
-  },
+      tabBarLabel: 'Stats'
+    }
+  }
 });
 
 export default Navigation;

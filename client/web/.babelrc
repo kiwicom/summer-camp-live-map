@@ -4,6 +4,11 @@
   ],
   "plugins": [
     "relay",
-    "transform-flow-comments"
+    "transform-flow-comments",
+    ["module-resolver", {
+      "alias": {
+        "^react-native$": "react-native-web"
+      }
+    }]
   ]
 }

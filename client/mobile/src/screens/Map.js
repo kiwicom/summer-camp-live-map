@@ -41,7 +41,7 @@ export default class Map extends React.Component<{}> {
   render() {
     return (
       <Container>
-        <MapText>Map</MapText>
+        <MapText>Maps</MapText>
       </Container>
     );
   }

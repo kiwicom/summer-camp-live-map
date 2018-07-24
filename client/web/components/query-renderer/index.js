@@ -2,34 +2,35 @@
 
 import * as React from 'react';
 import { QueryRenderer } from 'react-relay';
+import { Text } from 'react-native'; // eslint-disable-line
 import environment from '../../util/environment';
 
 type Props = {|
   +query: string,
-  +render: (rendererProps: {}) => React.Node,
+  +render: (rendererProps: {}) => React.Node
 |};
 
 type RenderProps = {
   +error: {
-    message: string,
+    message: string
   },
-  props: {},
+  props: {}
 };
 
-export default function AppQueryRenderer({ query, render }: Props) {
+export default function AppQueryRenderer(props: Props): React.Node {
   return (
     <QueryRenderer
+      {...props}
       environment={environment}
-      query={query}
       variables={{}}
       render={({ error, props: rendererProps }: RenderProps) => {
         if (error) {
-          return <div>{error.message}</div>;
+          return <Text>{error.message}</Text>;
         }
         if (rendererProps) {
-          return render(rendererProps);
+          return props.render(rendererProps);
         }
-        return <div>Loading...</div>;
+        return <Text>Loading...</Text>;
       }}
     />
   );
