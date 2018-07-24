@@ -22,8 +22,8 @@ const MapText = styled.Text`
   margin: 10px;
 `;
 
-export default class Map extends React.Component {
-  static navigationOptions = props => ({
+export default class Map extends React.Component<{}> {
+  static navigationOptions = (props: any) => ({
     headerRight: (
       <Button
         title="Stats"
