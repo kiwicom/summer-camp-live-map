@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash a1f5bf966b6e51392ada05b7c631f039
+ * @relayHash b89f0563a62ee3ea20b0ecb29a8da97e
  */
 
 /* eslint-disable */
@@ -30,7 +30,7 @@ export type appQueryResponse = {|
 
 /*
 query appQuery {
-  flights(first: 2) {
+  flights {
     id
     location {
       lat
@@ -62,15 +62,8 @@ var v0 = {
   "kind": "LinkedField",
   "alias": null,
   "name": "flights",
-  "storageKey": "flights(first:2)",
-  "args": [
-    {
-      "kind": "Literal",
-      "name": "first",
-      "value": 2,
-      "type": "Int"
-    }
-  ],
+  "storageKey": null,
+  "args": null,
   "concreteType": "Flight",
   "plural": true,
   "selections": [
@@ -127,7 +120,7 @@ return {
   "operationKind": "query",
   "name": "appQuery",
   "id": null,
-  "text": "query appQuery {\n  flights(first: 2) {\n    id\n    location {\n      lat\n      lng\n    }\n    orientation\n  }\n  error\n  stats {\n    ...stats\n  }\n}\n\nfragment stats on Stats {\n  activeFlights\n  activePassengers\n  topNationalities {\n    code\n    passengers\n  }\n  flightsTakingOffSoon\n  flightsLandingSoon\n  mostOccupiedFlight\n}\n",
+  "text": "query appQuery {\n  flights {\n    id\n    location {\n      lat\n      lng\n    }\n    orientation\n  }\n  error\n  stats {\n    ...stats\n  }\n}\n\nfragment stats on Stats {\n  activeFlights\n  activePassengers\n  topNationalities {\n    code\n    passengers\n  }\n  flightsTakingOffSoon\n  flightsLandingSoon\n  mostOccupiedFlight\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -239,5 +232,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '44ede93ab477694b1563d604dd9f820e';
+(node/*: any*/).hash = '952bcbe7985af9afcf90e3484d38f425';
 module.exports = node;
