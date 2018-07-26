@@ -32,7 +32,7 @@ const StatsView = (props: { data: ?Stats }) => (
 
 const StatsContainer = createStatsContainer(StatsView);
 
-class StatsScreen extends React.Component<{}> {
+class StatsScreen extends React.Component<{||}> {
   static navigationOptions = ({ navigation }: NavigationProps) => ({
     headerTitle: 'Stats'
   });

@@ -8,14 +8,15 @@ import environment from '../../util/environment';
 
 type Props = {|
   +query: string,
+  +variables: ?{};
   +render: (rendererProps: {}) => React.Node
 |};
 
 type RenderProps = {
   +error: {
-    message: string
-  },
-  props: {}
+    message: string;
+  };
+  props: {};
 };
 
 const SpinnerContainer = styled(View)`
@@ -28,7 +29,7 @@ export default function AppQueryRenderer(props: Props): React.Node {
     <QueryRenderer
       {...props}
       environment={environment}
-      variables={{}}
+      variables={props.variables || {}}
       render={({ error, props: rendererProps }: RenderProps) => {
         if (error) {
           return <Text>{error.message}</Text>;

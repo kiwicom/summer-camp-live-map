@@ -6,6 +6,7 @@ schema {
 type RootQuery {
   flights(first: Int): [Flight]
   stats: Stats
+  location(id: String): Location
   error: Int
 }
 
@@ -23,6 +24,12 @@ type Stats {
   flightsTakingOffSoon: Int
   flightsLandingSoon: Int
   mostOccupiedFlight: String
+}
+
+type Location {
+  name: String
+  code: String
+  countryFlagURL: String
 }
 
 type Nationality {

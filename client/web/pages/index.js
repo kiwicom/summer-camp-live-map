@@ -30,6 +30,7 @@ const Index = () => (
         }
       }
     `}
+    variables={{}}
     render={props => <pre>{JSON.stringify(props, null, 2)}</pre>}
   />
 );

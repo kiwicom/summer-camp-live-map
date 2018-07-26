@@ -3,9 +3,10 @@ import * as React from 'react';
 import { graphql } from 'react-relay';
 import AppQueryRenderer from '../../components/query-renderer';
 
-type Props = {
+type Props = {|
+  +variables?: {};
   render(props: any): React.Node,
-};
+|};
 
 const App = (props: Props) => (
   <AppQueryRenderer
@@ -21,10 +22,11 @@ const App = (props: Props) => (
         }
         error
         stats {
-          ...stats
+          ...shared
         }
       }
     `}
+    variables={props.variables || {}}
     render={rendererProps => props.render(rendererProps)}
   />
 );
