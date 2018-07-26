@@ -4,14 +4,14 @@ import * as React from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import styled from 'styled-components';
 import idx from 'idx';
-import type { Stats } from '../../../../web/pages/stats/shared';
-import { InfoItem } from '../../../../web/pages/stats/shared';
+import type { Stats } from 'shared/containers/stats';
 import {
   ActivePlanes,
   PlaneLanding,
-  PlaneTakingOff
-} from '../../../../web/pages/stats/shared';
-const plane = require('../../../../web/pages/stats/styled/plane.png');
+  PlaneTakingOff,
+  InfoItem,
+} from 'shared/components/stats';
+const plane = require('shared/components/stats/plane.png');
 
 export const SectionTitle = styled(Text)`
   padding: 10px;

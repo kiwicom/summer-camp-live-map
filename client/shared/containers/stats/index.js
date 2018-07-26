@@ -10,7 +10,7 @@ export const createStatsContainer = (View: React.ComponentType<any>) => (
   createFragmentContainer(
     View,
     graphql`
-    fragment shared on Stats {
+    fragment stats on Stats {
       activeFlights
       activePassengers
       topNationalities {
@@ -24,7 +24,3 @@ export const createStatsContainer = (View: React.ComponentType<any>) => (
     `
   )
 );
-
-export { default as Nationalities } from './styled/Nationalities';
-export { default as InfoItem } from './styled/InfoItem';
-export { ActivePlanes, PlaneLanding, PlaneTakingOff } from './styled/InfoItem';

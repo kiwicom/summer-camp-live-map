@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import App from '../../pages/app';
+import App from '../app';
 
 // todo - revise flow types
 type Coordinates = {|

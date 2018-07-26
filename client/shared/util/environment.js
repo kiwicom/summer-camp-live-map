@@ -2,7 +2,7 @@
 
 import { Environment, Network, RecordSource, Store } from 'relay-runtime';
 import fetch from 'isomorphic-unfetch';
-import config from '../config';
+import config from './config';
 
 type Operation = {
   text: string,

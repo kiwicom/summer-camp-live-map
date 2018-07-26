@@ -4,8 +4,8 @@ import * as React from 'react';
 import idx from 'idx';
 import styled from 'styled-components';
 import { View, Text } from 'react-native'; // eslint-disable-line
-import Flag from '../../../components/Flag';
-import type { Stats } from '../shared';
+import Flag from '../Flag';
+import type { Stats } from '../../containers/stats';
 
 const Title = styled(Text)`
   font-size: 24px;

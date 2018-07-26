@@ -2,9 +2,9 @@
 
 import React, { Component } from 'react';
 import Head from 'next/head';
-import Flights, { FlightsContext } from '../../components/flights';
+import Flights, { FlightsContext } from 'shared/containers/flights';
 import { Map } from './styled';
-import type { Flight } from '../../components/flights';
+import type { Flight } from 'shared/containers/flights';
 import type { Map as MapType } from 'mapbox-gl';
 
 // todo - store token in some shared 'constants' class

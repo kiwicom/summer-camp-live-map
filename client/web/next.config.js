@@ -1,37 +1,64 @@
+// @flow
 require('dotenv').config();
 
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 
+const internalModules = /.*shared.*/;
+const externalModules = /.*shared.*/;
+
 module.exports = {
-  webpack: config => ({
-    ...config,
-    plugins: [
-      ...config.plugins,
+  webpack: (config, { defaultLoaders }) => {
+    config.resolve.symlinks = false;
+    config.externals = config.externals.map(external => {
+      if (typeof external !== 'function') return external;
+      return (ctx, req, cb) =>
+        externalModules.test(req) ? cb() : external(ctx, req, cb);
+    });
 
-      // Read the .env file
-      new Dotenv({
-        path: path.join(__dirname, '.env'),
-        systemvars: true,
-      }),
-    ],
+    config.module.rules.push({
+      test: /\.+(js|jsx)$/,
+      loader: defaultLoaders.babel,
+      include: [internalModules],
+    });
 
-    module: {
-      ...config.module,
+    return {
+      ...config,
+      plugins: [
+        ...config.plugins,
 
-      rules: [
-        ...config.module.rules,
+        // Read the .env file
+        new Dotenv({
+          path: path.join(__dirname, '.env'),
+          systemvars: true,
+        }),
+      ],
+      module: {
+        ...config.module,
 
-        {
-          test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|ico)$/,
-          use: {
-            loader: 'url-loader',
-            options: {
-              limit: 100000,
+        rules: [
+          ...config.module.rules,
+
+          {
+            test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|ico)$/,
+            use: {
+              loader: 'url-loader',
+              options: {
+                limit: 100000,
+              },
             },
           },
-        }
-      ],
-    },
-  }),
+        ],
+      },
+      resolve: {
+        ...config.resolve,
+        modules: [path.resolve(__dirname, 'node_modules'), 'node_modules'],
+      },
+    };
+  },
+  webpackDevMiddleware: config => {
+    const ignored = [config.watchOptions.ignored[0], externalModules];
+    config.watchOptions.ignored = ignored;
+    return config;
+  },
 };

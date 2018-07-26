@@ -1,0 +1,33 @@
+{
+  "name": "shared",
+  "version": "1.0.0",
+  "description": "Shared package",
+  "author": "",
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "relay": "relay-compiler --src . --exclude '**/.next/**' '**/node_modules/**' '**/test/**'  '**/__generated__/**' --exclude './schema/**' --schema ../../graphql/schema.graphql"
+  },
+  "dependencies": {
+    "idx": "^2.4.0",
+    "isomorphic-unfetch": "^2.1.0",
+    "mapbox-gl": "^0.47.0",
+    "next": "latest",
+    "react": "^16.4.1",
+    "react-native": "^0.56.0",
+    "react-native-web": "^0.8.9",
+    "react-relay": "^1.6.0",
+    "relay-runtime": "^1.6.0",
+    "styled-components": "^3.3.3"
+  },
+  "devDependencies": {
+    "graphql": "^0.13.2",
+    "relay-compiler": "^1.6.0"
+  },
+  "private": true,
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ]
+  }
+}

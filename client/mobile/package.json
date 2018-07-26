@@ -8,15 +8,17 @@
     "relay": "relay-compiler --src ./ --exclude '**/.next/**' '**/node_modules/**' '**/test/**'  '**/__generated__/**' --exclude './schema/**' --schema ../../graphql/schema.graphql"
   },
   "dependencies": {
+    "@mapbox/react-native-mapbox-gl": "^6.1.2-beta2",
     "antd-mobile-rn": "2.2.1",
     "idx": "^2.4.0",
     "isomorphic-unfetch": "^2.1.0",
-    "@mapbox/react-native-mapbox-gl": "^6.1.2-beta2",
     "react": "16.4.1",
     "react-native": "0.56.0",
+    "react-native-web": "^0.8.9",
     "react-navigation": "^2.9.0",
     "react-relay": "^1.6.0",
     "relay-runtime": "^1.6.0",
+    "shared": "1.0.0",
     "styled-components": "^3.3.3"
   },
   "devDependencies": {
@@ -36,5 +38,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ]
   }
 }

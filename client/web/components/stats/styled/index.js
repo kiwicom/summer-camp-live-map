@@ -3,17 +3,16 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { View, Text } from 'react-native'; // eslint-disable-line
-import type { Stats } from '../shared';
+import type { Stats } from 'shared/containers/stats';
 import { Row, Col } from 'antd';
 import idx from 'idx';
-import InfoItem, {
+import {
   ActivePlanes,
   PlaneTakingOff,
-  PlaneLanding
-} from './InfoItem';
+  PlaneLanding,
+  InfoItem,
+} from 'shared/components/stats';
 const plane = require('./plane.png');
-
-export { default as Nationalities } from './Nationalities';
 
 export const InfoRow = (props: { data: ?Stats }) => {
   const flightsTakingOffSoon = idx(props.data, _ =>_.flightsTakingOffSoon) || 0;

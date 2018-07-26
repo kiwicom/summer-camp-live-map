@@ -1,4 +1,5 @@
 // @flow
+
 import * as React from 'react';
 import { graphql } from 'react-relay';
 import AppQueryRenderer from '../../components/query-renderer';
@@ -22,7 +23,7 @@ const App = (props: Props) => (
         }
         error
         stats {
-          ...shared
+          ...stats
         }
       }
     `}

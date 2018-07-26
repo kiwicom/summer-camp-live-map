@@ -2,7 +2,6 @@
 .*/node_modules/config-chain/test/broken.json
 
 [include]
-../shared
 
 [libs]
 
@@ -10,6 +9,5 @@
 
 [options]
 module.name_mapper='^react-native$' -> 'react-native-web'
-module.name_mapper.extension='ico' -> '<PROJECT_ROOT>/flow/ImageModuleStub.js.flow'
 
 [strict]
