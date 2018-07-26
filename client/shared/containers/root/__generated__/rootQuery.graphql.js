@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 5113b956aefc844e05dd97a64bcd4178
+ * @relayHash c535b62c52ffc0d48810c8fced644fb0
  */
 
 /* eslint-disable */
@@ -9,8 +9,8 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-export type pagesQueryVariables = {||};
-export type pagesQueryResponse = {|
+export type rootQueryVariables = {||};
+export type rootQueryResponse = {|
   +flights: ?$ReadOnlyArray<?{|
     +id: string,
     +location: ?{|
@@ -36,7 +36,7 @@ export type pagesQueryResponse = {|
 
 
 /*
-query pagesQuery {
+query rootQuery {
   flights(first: 2) {
     id
     location {
@@ -201,13 +201,13 @@ var v0 = [
 return {
   "kind": "Request",
   "operationKind": "query",
-  "name": "pagesQuery",
+  "name": "rootQuery",
   "id": null,
-  "text": "query pagesQuery {\n  flights(first: 2) {\n    id\n    location {\n      lat\n      lng\n    }\n    orientation\n  }\n  error\n  stats {\n    activePAX: activePassengers\n    activeFlights\n    topNationalities {\n      code\n      passengers\n    }\n    flightsTakingOffSoon\n    flightsLandingSoon\n    mostOccupiedFlight\n  }\n}\n",
+  "text": "query rootQuery {\n  flights(first: 2) {\n    id\n    location {\n      lat\n      lng\n    }\n    orientation\n  }\n  error\n  stats {\n    activePAX: activePassengers\n    activeFlights\n    topNationalities {\n      code\n      passengers\n    }\n    flightsTakingOffSoon\n    flightsLandingSoon\n    mostOccupiedFlight\n  }\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
-    "name": "pagesQuery",
+    "name": "rootQuery",
     "type": "RootQuery",
     "metadata": null,
     "argumentDefinitions": [],
@@ -215,12 +215,12 @@ return {
   },
   "operation": {
     "kind": "Operation",
-    "name": "pagesQuery",
+    "name": "rootQuery",
     "argumentDefinitions": [],
     "selections": v0
   }
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5399634091fc78daca5b090797279abc';
+(node/*: any*/).hash = '2e40049009e1534e3c479ee0a768c46b';
 module.exports = node;

@@ -1,0 +1,12 @@
+{
+  "name": "root-pkg",
+  "version": "1.0.0",
+  "description": "Root package",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "private": true,
+  "workspaces": {
+    "packages": ["web", "shared", "mobile"]
+  }
+}

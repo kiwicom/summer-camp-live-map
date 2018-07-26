@@ -1,6 +1,6 @@
 /**
  * @flow
- * @relayHash 0e2089739d9247b72082ada6bd9450e1
+ * @relayHash b89f0563a62ee3ea20b0ecb29a8da97e
  */
 
 /* eslint-disable */
@@ -9,7 +9,7 @@
 
 /*::
 import type { ConcreteRequest } from 'relay-runtime';
-type shared$ref = any;
+type stats$ref = any;
 export type appQueryVariables = {||};
 export type appQueryResponse = {|
   +flights: ?$ReadOnlyArray<?{|
@@ -22,7 +22,7 @@ export type appQueryResponse = {|
   |}>,
   +error: ?number,
   +stats: ?{|
-    +$fragmentRefs: shared$ref
+    +$fragmentRefs: stats$ref
   |},
 |};
 */
@@ -40,11 +40,11 @@ query appQuery {
   }
   error
   stats {
-    ...shared
+    ...stats
   }
 }
 
-fragment shared on Stats {
+fragment stats on Stats {
   activeFlights
   activePassengers
   topNationalities {
@@ -120,7 +120,7 @@ return {
   "operationKind": "query",
   "name": "appQuery",
   "id": null,
-  "text": "query appQuery {\n  flights {\n    id\n    location {\n      lat\n      lng\n    }\n    orientation\n  }\n  error\n  stats {\n    ...shared\n  }\n}\n\nfragment shared on Stats {\n  activeFlights\n  activePassengers\n  topNationalities {\n    code\n    passengers\n  }\n  flightsTakingOffSoon\n  flightsLandingSoon\n  mostOccupiedFlight\n}\n",
+  "text": "query appQuery {\n  flights {\n    id\n    location {\n      lat\n      lng\n    }\n    orientation\n  }\n  error\n  stats {\n    ...stats\n  }\n}\n\nfragment stats on Stats {\n  activeFlights\n  activePassengers\n  topNationalities {\n    code\n    passengers\n  }\n  flightsTakingOffSoon\n  flightsLandingSoon\n  mostOccupiedFlight\n}\n",
   "metadata": {},
   "fragment": {
     "kind": "Fragment",
@@ -142,7 +142,7 @@ return {
         "selections": [
           {
             "kind": "FragmentSpread",
-            "name": "shared",
+            "name": "stats",
             "args": null
           }
         ]
@@ -232,5 +232,5 @@ return {
 };
 })();
 // prettier-ignore
-(node/*: any*/).hash = '5402618b0791957e9746064f56e5af57';
+(node/*: any*/).hash = '952bcbe7985af9afcf90e3484d38f425';
 module.exports = node;
