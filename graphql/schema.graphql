@@ -7,7 +7,7 @@ type RootQuery {
   flights(first: Int): [Flight]
   stats: Stats
   location(id: String): Location
-  error: Int
+  error: String
 }
 
 type Flight {
@@ -42,13 +42,11 @@ type Coordinates {
   lng: Float
 }
 
-# TODO: replace with reasonable implementation of subscription that app needs
 type Subscription {
-  counter: Counter
+  flightsData: FlightDataChangeUpdate
 }
 
-type Counter {
-  value: Int
+type FlightDataChangeUpdate {
+  removed: [String]
+  updated: [Flight]
 }
-
-
