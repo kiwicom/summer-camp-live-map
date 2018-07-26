@@ -9,8 +9,8 @@
 /*::
 import type { ConcreteFragment } from 'relay-runtime';
 import type { FragmentReference } from "relay-runtime";
-declare export opaque type stats$ref: FragmentReference;
-export type stats = {|
+declare export opaque type shared$ref: FragmentReference;
+export type shared = {|
   +activeFlights: ?number,
   +activePassengers: ?number,
   +topNationalities: ?$ReadOnlyArray<?{|
@@ -20,14 +20,14 @@ export type stats = {|
   +flightsTakingOffSoon: ?number,
   +flightsLandingSoon: ?number,
   +mostOccupiedFlight: ?string,
-  +$refType: stats$ref,
+  +$refType: shared$ref,
 |};
 */
 
 
 const node/*: ConcreteFragment*/ = {
   "kind": "Fragment",
-  "name": "stats",
+  "name": "shared",
   "type": "Stats",
   "metadata": null,
   "argumentDefinitions": [],
@@ -95,5 +95,5 @@ const node/*: ConcreteFragment*/ = {
   ]
 };
 // prettier-ignore
-(node/*: any*/).hash = 'db13f4381dfe2bc244cef8e52bf3dfaf';
+(node/*: any*/).hash = 'c3a0b117fa681fd4937c6eff43d9057c';
 module.exports = node;

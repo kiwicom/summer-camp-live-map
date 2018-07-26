@@ -33,6 +33,21 @@ async function fetchData() {
   return cachedData;
 }
 
+function getQueryForCode(locationId) {
+  return {
+    query: `{
+        location(id: "${locationId}") {
+          name
+          code
+          countryFlagURL
+        }
+      }
+    `,
+    variables: null,
+    operationName: null,
+  };
+}
+
 const typeDefs = fs.readFileSync(PATH_TO_GRAPHQL_SCHEMA, 'utf8')
 
 let COUNTER = 0;
@@ -65,6 +80,18 @@ const resolvers = {
         flightsLandingSoon: data.landingCount,
         mostOccupiedFlight: data.mostPaxInfo,
       }
+    },
+    location: async (_, args) => {
+      const response = await fetch('https://graphql.kiwi.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(getQueryForCode(args.id))
+      })
+      .then(response => response.json());
+      return response.data.location;
     },
     error: () => 'error example'
   },
