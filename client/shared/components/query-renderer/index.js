@@ -8,15 +8,15 @@ import environment from '../../util/environment';
 
 type Props = {|
   +query: string,
-  +variables: ?{};
-  +render: (rendererProps: {}) => React.Node
+  +variables: ?{},
+  +render: (rendererProps: {}) => React.Node,
 |};
 
 type RenderProps = {
   +error: {
-    message: string;
-  };
-  props: {};
+    message: string,
+  },
+  props: {},
 };
 
 const SpinnerContainer = styled(View)`
@@ -39,10 +39,7 @@ export default function AppQueryRenderer(props: Props): React.Node {
         }
         return (
           <SpinnerContainer>
-            <ActivityIndicator
-              size="small"
-              animating
-            />
+            <ActivityIndicator size="small" animating />
           </SpinnerContainer>
         );
       }}
