@@ -5,7 +5,7 @@ import { graphql } from 'react-relay';
 import AppQueryRenderer from '../../components/query-renderer';
 
 type Props = {|
-  +variables?: {};
+  +variables?: {},
   render(props: any): React.Node,
 |};
 
