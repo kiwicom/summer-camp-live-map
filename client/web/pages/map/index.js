@@ -4,6 +4,8 @@ import React, { Component } from 'react';
 import Head from 'next/head';
 import Flights, { FlightsContext } from '../../components/flights';
 import { Map } from './styled';
+import type { Flight } from '../../components/flights';
+import type { Map as MapType } from 'mapbox-gl';
 
 // todo - store token in some shared 'constants' class
 const TOKEN =
@@ -14,7 +16,10 @@ type Props = {
   +data: Flight[],
 };
 
-class MapView extends Component {
+class MapView extends Component<Props> {
+  mapRef = React.createRef();
+  map: MapType;
+
   constructor(props) {
     super(props);
     this.mapRef = React.createRef();
@@ -85,7 +90,7 @@ class MapView extends Component {
 const Page = () => (
   <Flights>
     <FlightsContext.Consumer>
-      {flights => <MapView data={flights} />}
+      {flights => <MapView data={flights || []} />}
     </FlightsContext.Consumer>
   </Flights>
 );

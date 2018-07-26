@@ -1,76 +1,42 @@
 // @flow
 
-import React from 'react';
-import { createFragmentContainer, graphql } from 'react-relay';
+import * as React from 'react';
 import { Text } from 'react-native'; // eslint-disable-line
 import App from '../app';
-import { Container, Header, NationalityContainer } from './styled';
+import { Nationalities, InfoRow, PageWrapper } from './styled';
+import { Header } from './styled';
+import { Button, Progress } from 'antd';
+import { createStatsContainer } from './shared';
+import type { Stats } from './shared';
 
-type Nationality = {|
-  +code: string,
-  +passengers: number,
-|};
-
-type Stats = {|
-  +activeFlights: number,
-  +activeFlights: number,
-  +topNationalities: Nationality[],
-  +flightsTakingOffSoon: number,
-  +flightsLandingSoon: number,
-  +mostOccupiedFlight: string,
-|};
-
-type Props = {
+type Props = {|
   +data: Stats,
-};
+|};
 
-const NationalityInfo = ({
-  code,
-  passengers,
-}: {
-  code: string,
-  passengers: number,
-}) => (
-  <NationalityContainer>
-    {code} : {passengers}
-  </NationalityContainer>
-);
-
-export const StatsView = ({ data }: Props) => {
-  const { flightsTakingOffSoon, flightsLandingSoon, mostOccupiedFlight } = data;
+const StatsView = ({ data }: Props) => {
   return (
-    <Container>
+    <>
       <Header>Top countries</Header>
-      {data.topNationalities.map(nationality => (
-        <NationalityInfo key={nationality.code} {...nationality} />
-      ))}
-      <Text>Taking off soon: {flightsTakingOffSoon}</Text>
-      <Text>Landing soon: {flightsLandingSoon}</Text>
-      <Text>Most occupied flight: {mostOccupiedFlight}</Text>
-    </Container>
+      <Nationalities
+        data={data}
+        Progress={item =>
+          <Progress percent={item.percent} showInfo={false} />
+        }
+      />
+      <InfoRow data={data} />
+    </>
   );
 };
 
-export const StatsContainer = createFragmentContainer(
-  StatsView,
-  graphql`
-    fragment stats on Stats {
-      activeFlights
-      activePassengers
-      topNationalities {
-        code
-        passengers
-      }
-      flightsTakingOffSoon
-      flightsLandingSoon
-      mostOccupiedFlight
-    }
-  `
-);
+const StatsContainer = createStatsContainer(StatsView);
 
 const Page = () => (
   <App
-    render={({ stats }: { stats: Stats }) => <StatsContainer data={stats} />}
+    render={({ stats }: { stats: Stats }) =>
+      <PageWrapper>
+        <StatsContainer data={stats} />
+      </PageWrapper>
+    }
   />
 );
 

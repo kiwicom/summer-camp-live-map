@@ -1,4 +1,7 @@
 {
   "presets": ["react-native"],
-  "plugins": ["relay"]
+  "plugins": [
+    "relay",
+    ["import", { "libraryName": "antd-mobile-rn" }]
+  ]
 }

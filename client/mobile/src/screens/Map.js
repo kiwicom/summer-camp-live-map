@@ -8,6 +8,7 @@ import { Button } from 'react-native';
 import Mapbox from '@mapbox/react-native-mapbox-gl';
 import App from '../../../web/pages/app';
 import { type Map } from './__generated__/Map.graphql';
+import type { Flight } from '../../../web/components/flights';
 
 Mapbox.setAccessToken(
   'pk.eyJ1Ijoiam9zZWR1IiwiYSI6ImNqanppbzA3aDI3MjUzd282Y2VlbGc4MjIifQ.HBadGO4LnP3CUvqz6Hs-RA'
@@ -42,8 +43,12 @@ type NavigationProps = {
   },
 };
 
-class MapComponent extends React.Component<{}> {
+type Props = {|
+  flights: Flight[];
+|};
+class MapComponent extends React.Component<Props> {
   static navigationOptions = ({ navigation }: NavigationProps) => ({
+    title: 'Map',
     headerRight: (
       <Button
         title="Stats"
