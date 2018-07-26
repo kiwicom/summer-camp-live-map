@@ -35,15 +35,17 @@ async function fetchData() {
 
 function getQueryForCode(locationId) {
   return {
-    query: `{
-        location(id: "${locationId}") {
-          name
-          code
-          countryFlagURL
+    query: `
+      query FlagQuery($locationId: String!) {
+          location(id: $locationId) {
+            name
+            code
+            countryFlagURL
+          }
         }
       }
     `,
-    variables: null,
+    variables: { locationId },
     operationName: null,
   };
 }
