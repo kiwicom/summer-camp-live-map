@@ -46,49 +46,37 @@ type NavigationProps = {
 type Props = {|
   flights: Flight[];
 |};
-class MapComponent extends React.Component<Props> {
-  static navigationOptions = ({ navigation }: NavigationProps) => ({
-    title: 'Map',
-    headerRight: (
-      <Button
-        title="Stats"
-        onPress={() => navigation.dispatch(NavigateStatsAction)}
-      />
-    ),
-  });
+const MapComponent = (props: Props) => {
+  const { flights } = props;
 
-  render() {
-    const { flights } = this.props;
+  const featureCollection = {
+    type: 'FeatureCollection',
+    features: flights.map(flight => ({
+      id: flight.id,
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [flight.location.lat, flight.location.lng],
+      },
+      properties: {
+        rotation: flight.orientation,
+      },
+    })),
+  };
 
-    const featureCollection = {
-      type: 'FeatureCollection',
-      features: flights.map(flight => ({
-        id: flight.id,
-        type: 'Feature',
-        geometry: {
-          type: 'Point',
-          coordinates: [flight.location.lat, flight.location.lng],
-        },
-        properties: {
-          rotation: flight.orientation,
-        },
-      })),
-    };
-
-    return (
-      <Container>
-        <StyledMap
-          styleURL="mapbox://styles/mapbox/light-v9"
-          zoomLevel={4.5}
-          centerCoordinate={[2.178307, 41.389526]}
-        >
-          <Mapbox.ShapeSource id="Flights" shape={featureCollection}>
-            <Mapbox.SymbolLayer id="Plane" style={styles.icon} />
-          </Mapbox.ShapeSource>
-        </StyledMap>
-      </Container>
-    );
-  }
+  return (
+    <Container>
+      <StyledMap
+        styleURL="mapbox://styles/mapbox/light-v9"
+        zoomLevel={4.5}
+        centerCoordinate={[2.178307, 41.389526]}
+      >
+        <Mapbox.ShapeSource id="Flights" shape={featureCollection}>
+          <Mapbox.SymbolLayer id="Plane" style={styles.icon} />
+        </Mapbox.ShapeSource>
+      </StyledMap>
+    </Container>
+  );
 }
 
 export const MapContainer = Relay.createFragmentContainer(
@@ -107,12 +95,26 @@ export const MapContainer = Relay.createFragmentContainer(
   `
 );
 
-const View = () => (
-  <App
-    render={({ flights }: Map) => (
-      <MapContainer data={null} flights={flights} />
-    )}
-  />
-);
+class View extends React.Component<*> {
+  static navigationOptions = ({ navigation }: NavigationProps) => ({
+    title: 'Map',
+    headerRight: (
+      <Button
+        title="Stats"
+        onPress={() => navigation.dispatch(NavigateStatsAction)}
+      />
+    ),
+  });
+
+  render() {
+    return (
+      <App
+        render={({ flights }: Map) => (
+          <MapContainer data={null} flights={flights} />
+        )}
+      />
+    );
+  }
+}
 
 export default View;
