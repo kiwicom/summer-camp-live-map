@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "isomorphic-unfetch": "^2.1.0",
+    "@mapbox/react-native-mapbox-gl": "^6.1.2-beta2",
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-navigation": "^2.9.0",
