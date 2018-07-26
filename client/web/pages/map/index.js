@@ -1,33 +1,18 @@
 // @flow
 
-import Relay, { graphql } from 'react-relay';
 import React, { Component } from 'react';
 import Head from 'next/head';
-import App from '../app';
-import { Container, Map } from './styled';
+import Flights, { FlightsContext } from '../../components/flights';
+import { Map } from './styled';
 
 // todo - store token in some shared 'constants' class
 const TOKEN =
   'pk.eyJ1Ijoiam9zZWR1IiwiYSI6ImNqanppbzA3aDI3MjUzd282Y2VlbGc4MjIifQ.HBadGO4LnP3CUvqz6Hs-RA';
 
-/*
-todo - complete flown implementation (after fragment separation)
-
-type Coordinates = {|
-  +lat: number,
-  +lng: number,
-|};
-
-type Flight = {|
-  +id: string,
-  +location: Coordinates,
-  +orientation: number,
-|};
-
+// todo - revise flow
 type Props = {
   +data: Flight[],
 };
-*/
 
 class MapView extends Component {
   constructor(props) {
@@ -52,7 +37,6 @@ class MapView extends Component {
       const mapbox = Object.assign(mapboxgl, {
         accessToken: TOKEN,
       });
-
       this.map = new mapbox.Map({
         container: this.mapRef.current,
         style: 'mapbox://styles/mapbox/light-v9',
@@ -61,36 +45,30 @@ class MapView extends Component {
       });
 
       this.map.on('load', () => {
-        this.map.loadImage('/static/img/plane.png', (error, image) => {
-          if (error) throw error;
-          this.map.addImage('plane', image);
-          this.map.addLayer({
-            id: 'points',
-            type: 'symbol',
-            source: {
-              type: 'geojson',
-              data: {
-                type: 'FeatureCollection',
-                features: flights,
-              },
+        this.map.addLayer({
+          id: 'points',
+          type: 'symbol',
+          source: {
+            type: 'geojson',
+            data: {
+              type: 'FeatureCollection',
+              features: flights,
             },
-            layout: {
-              'icon-image': 'plane',
-              'icon-size': 0.5,
-              'icon-rotate': ['get', 'rotation'],
-              'icon-rotation-alignment': 'map',
-              'icon-allow-overlap': true,
-            },
-          });
+          },
+          layout: {
+            'icon-image': 'airport-15',
+            'icon-rotate': ['get', 'rotation'],
+            'icon-rotation-alignment': 'map',
+            'icon-allow-overlap': true,
+          },
         });
       });
     });
   }
 
-  // todo - probably remove Container wrap
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Head>
           <title>Live Map</title>
           <link
@@ -98,45 +76,18 @@ class MapView extends Component {
             rel="stylesheet"
           />
         </Head>
-        <Container>
-          <div
-            ref={this.mapRef}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-            }}
-          />
-        </Container>
-      </div>
+        <Map innerRef={this.mapRef} />
+      </React.Fragment>
     );
   }
 }
 
-const MapContainer = Relay.createFragmentContainer(
-  MapView,
-  graphql`
-    fragment map_flights on RootQuery {
-      flights {
-        id
-        location {
-          lat
-          lng
-        }
-        orientation
-      }
-    }
-  `
-);
-
 const Page = () => (
-  <App
-    render={({ flights }: { flights: Flights }) => (
-      <MapContainer data={flights} />
-    )}
-  />
+  <Flights>
+    <FlightsContext.Consumer>
+      {flights => <MapView data={flights} />}
+    </FlightsContext.Consumer>
+  </Flights>
 );
 
 export default Page;

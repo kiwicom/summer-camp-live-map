@@ -1,14 +1,27 @@
 // @flow
 
-import styled from 'styled-components';
+import styled, { injectGlobal } from 'styled-components';
 
-// todo - revise if even needed
+// todo - revise - not really happy with the inject solution
+injectGlobal`
+  html {
+    height: 100%;
+    width: 100%;
+  }
+
+  body {
+    height: 100%;
+    width: 100%;
+  }
+
+  #__next {
+    height: 100%;
+    width: 100%;
+  }
+`;
 
 export const Container = styled.div``;
 export const Map = styled.div`
-    position: 'absolute';
-    top: 0;
-    left: 0;
-    width: '100%';
-    height: '100%';
+  width: 100%;
+  height: 100%;
 `;
