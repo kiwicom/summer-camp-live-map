@@ -7,6 +7,15 @@
   "license": "ISC",
   "private": true,
   "workspaces": {
-    "packages": ["web", "shared", "mobile"]
+    "packages": [
+      "web",
+      "shared",
+      "mobile"
+    ]
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-flow": "^6.23.0",
+    "flow-bin": "^0.77.0"
   }
 }
