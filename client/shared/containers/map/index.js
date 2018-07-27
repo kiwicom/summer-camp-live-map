@@ -2,13 +2,22 @@
 
 import * as React from 'react';
 import Flights, { FlightsContext } from '../flights';
+import type { Flight } from '../flights';
 
-type Props = {|
-  +flights: any[],
-  +component: React.ComponentType<any>,
+export type MapComponentProps = {|
+  +token: string,
+  +featureCollection: {},
+  +zoomLevel: number,
+  +centerCoordinate: [number, number],
+  +icon: string,
+  +styleURL: string,
 |};
 
-const MapComponent = (props: Props) => {
+type Props = {|
+  +flights: Flight[],
+  +component: React.ComponentType<MapComponentProps>,
+|};
+const MapContainer = (props: Props) => {
   const { flights, component: Component } = props;
 
   const featureCollection = {
@@ -38,11 +47,14 @@ const MapComponent = (props: Props) => {
   );
 };
 
-const MapView = ({ component }: { component: React.ComponentType<any> }) => (
+type MapViewProps = {|
+  +component: React.ComponentType<MapComponentProps>;
+|};
+const MapView = ({ component }: MapViewProps) => (
   <Flights>
     <FlightsContext.Consumer>
       {flights =>
-        <MapComponent flights={flights || []} component={component} />
+        <MapContainer flights={flights || []} component={component} />
       }
     </FlightsContext.Consumer>
   </Flights>

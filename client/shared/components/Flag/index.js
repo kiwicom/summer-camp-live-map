@@ -1,11 +1,9 @@
 // @flow
 
 import * as React from 'react';
-import { Image, View } from 'react-native'; // esling-disable-line
+import { Image, View } from 'react-native';
 import styled from 'styled-components';
-import fetch from 'isomorphic-unfetch';
-import type { Response } from 'isomorphic-unfetch';
-import { graphql, createFragmentContainer } from 'react-relay';
+import { graphql } from 'react-relay';
 import QueryRenderer from '../query-renderer';
 import type { Location } from './__generated__/FlagQuery.graphql';
 
@@ -38,7 +36,7 @@ const FlagView = (props: { code: string }) => (
         }
       `}
       variables={{ locationId: props.code }}
-      render={(props: any) => <Flag {...props} />}
+      render={(props: Props) => <Flag {...props} />}
     />
   </ImageContainer>
 );

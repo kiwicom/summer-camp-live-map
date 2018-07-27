@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import styled from 'styled-components';
-import { View, Text, Image, Platform } from 'react-native'; // eslint-disable-line
+import { View, Text, Image, Platform } from 'react-native';
 
 const mul = Platform.OS === 'web' ? 1 : -1;
 

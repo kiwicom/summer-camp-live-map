@@ -3,7 +3,7 @@
 import * as React from 'react';
 import idx from 'idx';
 import styled from 'styled-components';
-import { View, Text } from 'react-native'; // eslint-disable-line
+import { View, Text } from 'react-native';
 import Flag from '../Flag';
 import type { Stats } from '../../containers/stats';
 
@@ -43,7 +43,7 @@ export const Item = (props: ItemProps) => (
 
 type NationalitiesProps = {|
   data: ?Stats;
-  Progress: React.ComponentType<{ percent: number }>
+  Progress: React.ComponentType<{ percent: number }>;
 |};
 const Nationalities = (props: NationalitiesProps): React.Node => {
   const nationalities = idx(props, _ => _.data.topNationalities) || [];
