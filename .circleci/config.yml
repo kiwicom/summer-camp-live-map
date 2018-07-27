@@ -30,16 +30,15 @@ jobs:
       # run flow
       - run: yarn flow --quiet
 
-  deploy-backend:
+  deploy:
     machine:
         enabled: true
-    working_directory: ~/summer-camp-live-map/server
+    working_directory: ~/summer-camp-live-map
     environment:
       HEROKU_APP: "live-map-api"
       HEROKU_API_KEY: "965af484-a02d-4b72-959e-fa9cd96cc5eb"
     steps:
-      - checkout:
-          path: ~/summer-camp-live-map
+      - checkout
       - run:
           name: Deploy Master to Heroku
           command: |
@@ -53,7 +52,7 @@ workflows:
       - test-client
   deploy:
     jobs:
-      - deploy-backend:
+      - deploy:
           filters:
             branches:
               only: master
