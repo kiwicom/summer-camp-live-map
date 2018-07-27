@@ -7,7 +7,7 @@ import type { stats } from './__generated__/stats.graphql';
 
 export type Stats = stats;
 
-export function <T>createStatsContainer(
+export function createStatsContainer<T>(
   View: React.ComponentType<T>
 ): RelayContainer<T> {
   return createFragmentContainer(
