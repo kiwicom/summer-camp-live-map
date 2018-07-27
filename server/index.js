@@ -6,7 +6,7 @@ const R = require('ramda');
 const PATH_TO_GRAPHQL_SCHEMA = '../graphql/schema.graphql';
 const UPDATE_FLIGHTS_CHANNEL = 'FLIGHT_UPDATES';
 const REFRESH_CACHE_DATA_INTERVAL = 3 * 60 * 1000;
-const API_URL = 'https://3gyucw6pqd.execute-api.eu-west-1.amazonaws.com/dev'
+const API_URL = 'https://3gyucw6pqd.execute-api.eu-west-1.amazonaws.com/dev';
 
 const cacheTime = 5 * 60 * 1000;
 
@@ -37,18 +37,18 @@ const refreshCache = async pubsub => {
   }
 
   const data = await rawResponse.json();
-  updateFlightsCache(data, pubsub)
+  updateFlightsCache(data, pubsub);
 };
 
 const updateFlightsCache = (data, pubsub) => {
-  const changedFlights = []
-  const presentFlightIds = {}
-  const removedFlightIds = []
+  const changedFlights = [];
+  const presentFlightIds = {};
+  const removedFlightIds = [];
 
   // populate object with ids of cached flights
   Object.keys(cachedFlightData).forEach(flightId => {
     presentFlightIds[flightId] = false;
-  })
+  });
 
   data.flights.forEach(flight => {
     if (!R.equals(flight, cachedFlightData[flight.id])) {
@@ -63,10 +63,10 @@ const updateFlightsCache = (data, pubsub) => {
   Object.keys(presentFlightIds).forEach(flightId => {
     // remove flights that are not in API response
     if (!presentFlightIds[flightId]) {
-      removedFlightIds.push(flightId)
-      delete cachedFlightData[flightId]
+      removedFlightIds.push(flightId);
+      delete cachedFlightData[flightId];
     }
-  })
+  });
 
   if (changedFlights.length || removedFlightIds.length) {
     console.log('updating flights');
@@ -75,7 +75,7 @@ const updateFlightsCache = (data, pubsub) => {
       removed: removedFlightIds,
     });
   }
-}
+};
 
 const fetchData = async () => {
   const timeDiff = Date.now() - lastFetchTime;
@@ -143,14 +143,13 @@ const resolvers = {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          Accept: 'application/json',
         },
-        body: JSON.stringify(getQueryForCode(args.id))
-      })
-      .then(response => response.json());
+        body: JSON.stringify(getQueryForCode(args.id)),
+      }).then(response => response.json());
       return response.data.location;
     },
-    error: () => 'error example'
+    error: () => 'error example',
   },
 
   Subscription: {
@@ -162,13 +161,20 @@ const resolvers = {
   },
 };
 
+const port = process.env.PORT || 4000;
+
 const pubsub = new PubSub();
-const server = new GraphQLServer({ typeDefs, resolvers, context: { pubsub } });
+const server = new GraphQLServer({
+  typeDefs,
+  resolvers,
+  context: { pubsub },
+  port,
+});
 server.start(async () => {
-  console.log(`Server is running on http://localhost:4000`);
+  console.log(`Server is running on http://localhost:${port}`);
 
   // cache data initially
-  await refreshCache(pubsub)
+  await refreshCache(pubsub);
   setInterval(async () => {
     await refreshCache(pubsub);
   }, REFRESH_CACHE_DATA_INTERVAL);
