@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import type { MapType } from 'mapbox-gl';
+import Link from 'next/link';
 import { type MapComponentProps } from 'shared/containers/map';
 import StatsButton from 'shared/components/StatsButton';
 
@@ -61,9 +62,9 @@ class MapView extends Component<MapComponentProps> {
   render() {
     return (
       <>
-        <a href="/stats">
-          <StatsButton title="Stats" onPress={fn} />
-        </a>
+        <Link href="/stats">
+          <a><StatsButton title="Stats" onPress={fn} /></a>
+        </Link>
         <Map innerRef={this.mapRef} />
       </>
     );
