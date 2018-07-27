@@ -10,7 +10,8 @@ jobs:
     working_directory: ~/summer-camp-live-map/client
 
     steps:
-      - checkout
+      - checkout:
+          path: ~/summer-camp-live-map
 
       # Download and cache dependencies
       - restore_cache:
@@ -19,7 +20,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: yarn install 
+      - run: yarn install
 
       - save_cache:
           paths:
@@ -27,9 +28,7 @@ jobs:
           key: v1-dependencies-{{ checksum "yarn.lock" }}
 
       # run flow
-      - run:
-          name: flow
-          command: yarn flow
+      - run: yarn flow --quiet
 
 workflows:
   version: 2
