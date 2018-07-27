@@ -1,10 +1,10 @@
 // @flow
 
 import React from 'react';
-import { View } from 'react-native';
+import { View, Button } from 'react-native';
 import idx from 'idx';
 import { Progress } from 'antd-mobile-rn';
-import type { NavigationProps } from 'react-navigation';
+import { type NavigationProps, NavigationActions } from 'react-navigation';
 import { Nationalities } from 'shared/components/stats';
 import { createStatsContainer }  from 'shared/containers/stats';
 import App from 'shared/containers/app';
@@ -25,10 +25,17 @@ const StatsView = (props: { data: ?Stats }) => (
 );
 
 const StatsContainer = createStatsContainer(StatsView);
+const backAction = NavigationActions.back();
 
 class StatsScreen extends React.Component<{||}> {
   static navigationOptions = ({ navigation }: NavigationProps) => ({
     headerTitle: 'Stats',
+    headerLeft: () => (
+      <Button
+        title="Cancel"
+        onPress={() => navigation.dispatch(backAction)}
+      />
+    ),
   });
 
   render() {

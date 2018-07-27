@@ -1,13 +1,17 @@
 // @flow
 
 import React, { Component } from 'react';
-
 import styled from 'styled-components';
+import type { MapType } from 'mapbox-gl';
+import StatsButton from 'shared/components/StatsButton';
 
 export const Map = styled.div`
   width: 100%;
   height: 100%;
 `;
+
+// Used to satisfy the button's `onPress` property requirement
+const fn = () => {};
 
 type Props = {|
   +token: string,
@@ -18,10 +22,8 @@ type Props = {|
   +styleURL: string,
 |};
 class MapView extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-    this.mapRef = React.createRef();
-  }
+  mapRef = React.createRef();
+  map: MapType;
 
   componentDidMount() {
     const {
@@ -64,7 +66,14 @@ class MapView extends Component<Props> {
   }
 
   render() {
-    return <Map innerRef={this.mapRef} />;
+    return (
+      <>
+        <a href="/stats">
+          <StatsButton title="Stats" onPress={fn} />
+        </a>
+        <Map innerRef={this.mapRef} />
+      </>
+    );
   }
 }
 

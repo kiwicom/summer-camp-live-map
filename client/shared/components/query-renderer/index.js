@@ -8,7 +8,7 @@ import environment from '../../util/environment';
 
 type Props = {|
   +query: string,
-  +variables: ?{},
+  +variables?: ?{},
   +render: (rendererProps: {}) => React.Node,
 |};
 
@@ -22,6 +22,7 @@ type RenderProps = {
 const SpinnerContainer = styled(View)`
   flex: 1;
   justify-content: center;
+  height: 100%;
 `;
 
 export default function AppQueryRenderer(props: Props): React.Node {

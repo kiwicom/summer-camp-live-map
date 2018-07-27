@@ -6,6 +6,8 @@ import { NavigationActions } from 'react-navigation';
 import { Button } from 'react-native';
 import MapView from 'shared/containers/map';
 import MapComponent from '../components/Map';
+import StatsButton from 'shared/components/StatsButton';
+import { View, Platform } from 'react-native';
 
 const NavigateStatsAction = NavigationActions.navigate({
   routeName: 'Stats',
@@ -22,20 +24,25 @@ type NavigationProps = {
   },
 };
 
-class MapScreen extends React.Component<*> {
-  static navigationOptions = ({ navigation }: NavigationProps) => ({
-    title: 'Map',
-    headerRight: (
-      <Button
-        title="Stats"
-        onPress={() => navigation.dispatch(NavigateStatsAction)}
-      />
-    ),
-  });
+const Header = styled(View)`
+  height: ${Platform.OS === 'ios' ? 18 : 0}px;
+  background-color: white;
+`;
+
+class MapScreen extends React.Component<NavigationProps> {
+  static navigationOptions() {
+    return {
+      header: () => <Header />,
+    }
+  }
 
   render() {
     return (
       <Container>
+        <StatsButton
+          title="Stats"
+          onPress={() => this.props.navigation.dispatch(NavigateStatsAction)}
+          />
         <MapView component={MapComponent} />
       </Container>
     );

@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay';
-import type { stats } from './__generated__/shared.graphql';
+import type { stats } from './__generated__/stats.graphql';
 
 export type Stats = stats;
 
