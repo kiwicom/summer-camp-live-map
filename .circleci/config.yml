@@ -36,7 +36,6 @@ jobs:
     working_directory: ~/summer-camp-live-map
     environment:
       HEROKU_APP: "live-map-api"
-      HEROKU_API_KEY: "965af484-a02d-4b72-959e-fa9cd96cc5eb"
     steps:
       - checkout
       - run:
