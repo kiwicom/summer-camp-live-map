@@ -5,15 +5,14 @@ const R = require('ramda');
 
 const PATH_TO_GRAPHQL_SCHEMA = '../graphql/schema.graphql';
 const UPDATE_FLIGHTS_CHANNEL = 'FLIGHT_UPDATES';
-const REFRESH_CACHE_DATA_INTERVAL = 3 * 60 * 1000;
+const REFRESH_CACHE_INTERVAL_NORMAL = 2 * 60 * 1000;
+const REFRESH_CACHE_INTERVAL_ERROR = 30 * 1000;
 const API_URL = 'https://3gyucw6pqd.execute-api.eu-west-1.amazonaws.com/dev';
 
-const cacheTime = 5 * 60 * 1000;
-
-let lastFetchTime;
-let getApiResponsePromise;
-
 const cachedFlightData = {};
+let fetchedData = {};
+
+const pubsub = new PubSub();
 
 const formatFlightData = flights =>
   flights.map(flight => ({
@@ -24,21 +23,6 @@ const formatFlightData = flights =>
       lng: flight.location.coordinates[1],
     },
   }));
-
-const refreshCache = async pubsub => {
-  const changedFlights = [];
-  console.warn('Refreshing API data');
-
-  const rawResponse = await fetch(API_URL);
-
-  if (!rawResponse.ok) {
-    console.warn('API is down');
-    throw new Error(`API is down`);
-  }
-
-  const data = await rawResponse.json();
-  updateFlightsCache(data, pubsub);
-};
 
 const updateFlightsCache = (data, pubsub) => {
   const changedFlights = [];
@@ -69,7 +53,11 @@ const updateFlightsCache = (data, pubsub) => {
   });
 
   if (changedFlights.length || removedFlightIds.length) {
-    console.log('updating flights');
+    console.log(
+      `Updating flights | Changed: ${changedFlights.length}, Removed: ${
+        removedFlightIds.length
+      }`
+    );
     pubsub.publish(UPDATE_FLIGHTS_CHANNEL, {
       updated: formatFlightData(changedFlights),
       removed: removedFlightIds,
@@ -77,26 +65,24 @@ const updateFlightsCache = (data, pubsub) => {
   }
 };
 
-const fetchData = async () => {
-  const timeDiff = Date.now() - lastFetchTime;
+const refreshCacheTick = refreshDelay => {
+  setTimeout(() => {
+    refreshCache();
+  }, refreshDelay);
+};
 
-  if (!getApiResponsePromise || timeDiff >= cacheTime) {
-    console.warn('Calling API');
-
-    getApiResponsePromise = new Promise(async (resolve, reject) => {
-      const response = await fetch(API_URL);
-
-      if (!response.ok) {
-        return reject(new Error('API error'));
-      }
-
-      return resolve(response.json());
+const refreshCache = () => {
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(json => {
+      fetchedData = json;
+      updateFlightsCache(json, pubsub);
+      refreshCacheTick(REFRESH_CACHE_INTERVAL_NORMAL);
+    })
+    .catch(err => {
+      refreshCacheTick(REFRESH_CACHE_INTERVAL_ERROR);
+      console.warn('Refresh Cache: Fetch Error');
     });
-    lastFetchTime = Date.now();
-  } else {
-    console.log('Using cached promise', timeDiff);
-  }
-  return getApiResponsePromise;
 };
 
 function getQueryForCode(locationId) {
@@ -120,24 +106,24 @@ const typeDefs = fs.readFileSync(PATH_TO_GRAPHQL_SCHEMA, 'utf8');
 
 const resolvers = {
   RootQuery: {
-    flights: async (parent, args) => {
-      const data = await fetchData();
-      return formatFlightData(data.flights.slice(undefined, args.first));
-    },
-    stats: async () => {
-      const data = await fetchData();
-      return {
-        activePassengers: data.activePassengersCount,
-        activeFlights: data.activeFlightsCount,
-        topNationalities: data.topNationalities.map(nationality => ({
-          code: nationality.nationalityCode,
-          passengers: nationality.count,
-        })),
-        flightsTakingOffSoon: data.takingOffCount,
-        flightsLandingSoon: data.landingCount,
-        mostOccupiedFlight: data.mostPaxInfo,
-      };
-    },
+    flights: (parent, args) =>
+      fetchedData.flights
+        ? formatFlightData(fetchedData.flights.slice(undefined, args.first))
+        : [],
+    stats: () =>
+      fetchedData.topNationalities
+        ? {
+            activePassengers: fetchedData.activePassengersCount,
+            activeFlights: fetchedData.activeFlightsCount,
+            topNationalities: fetchedData.topNationalities.map(nationality => ({
+              code: nationality.nationalityCode,
+              passengers: nationality.count,
+            })),
+            flightsTakingOffSoon: fetchedData.takingOffCount,
+            flightsLandingSoon: fetchedData.landingCount,
+            mostOccupiedFlight: fetchedData.mostPaxInfo,
+          }
+        : {},
     location: async (_, args) => {
       const response = await fetch('https://graphql.kiwi.com', {
         method: 'POST',
@@ -163,7 +149,6 @@ const resolvers = {
 
 const port = process.env.PORT || 4000;
 
-const pubsub = new PubSub();
 const server = new GraphQLServer({
   typeDefs,
   resolvers,
@@ -172,10 +157,6 @@ const server = new GraphQLServer({
 });
 server.start(async () => {
   console.log(`Server is running on http://localhost:${port}`);
-
-  // cache data initially
-  await refreshCache(pubsub);
-  setInterval(async () => {
-    await refreshCache(pubsub);
-  }, REFRESH_CACHE_DATA_INTERVAL);
+  // start cache loop
+  refreshCache();
 });
