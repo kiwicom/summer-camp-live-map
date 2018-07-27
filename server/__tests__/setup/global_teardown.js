@@ -1,4 +1,5 @@
 // @flow
-const teardown = async function(/* jest */) {};
+
+const teardown = async (/* jest */) => ({});
 
 module.exports = teardown;

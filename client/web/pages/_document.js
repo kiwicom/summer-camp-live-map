@@ -3,7 +3,6 @@
 import * as React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import { AppRegistry } from 'react-native-web';
-
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }: Document) {
     AppRegistry.registerComponent('Main', () => Main);

@@ -163,3 +163,5 @@ server.start(() => {
   refreshCache();
   return null;
 });
+
+export default server

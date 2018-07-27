@@ -1,4 +1,4 @@
 // @flow
-const setup = async function(/* jest */) {};
+const setup = async (/* jest */) => ({});
 
 module.exports = setup;
