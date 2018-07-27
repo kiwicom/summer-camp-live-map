@@ -1,11 +1,11 @@
 // @flow
 
-import React from 'react';
+import * as React from 'react';
 import Flights, { FlightsContext } from '../flights';
 
 type Props = {|
-  +flights: [],
-  +component: {},
+  +flights: any[],
+  +component: React.ComponentType<any>,
 |};
 
 const MapComponent = (props: Props) => {
@@ -38,12 +38,14 @@ const MapComponent = (props: Props) => {
   );
 };
 
-const View = ({ component }) => (
+const MapView = ({ component }: { component: React.ComponentType<any> }) => (
   <Flights>
     <FlightsContext.Consumer>
-      {flights => <MapComponent flights={flights} component={component} />}
+      {flights =>
+        <MapComponent flights={flights || []} component={component} />
+      }
     </FlightsContext.Consumer>
   </Flights>
 );
 
-export default View;
+export default MapView;
