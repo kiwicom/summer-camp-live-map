@@ -6,7 +6,8 @@
     "graphcool-init": "graphcool init --schema schema/init-schema.graphql",
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest"
   },
   "author": "",
   "license": "ISC",
@@ -29,14 +30,18 @@
     "styled-components": "^3.3.3"
   },
   "devDependencies": {
+    "babel-jest": "21.0.0",
     "babel-plugin-import": "^1.8.0",
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-relay": "^1.6.0",
     "babel-plugin-transform-flow-comments": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
     "file-loader": "^1.1.11",
     "graphcool": "^1.2.1",
     "graphql": "^0.13.2",
     "graphql-cli": "^1.0.0-beta.4",
+    "jest": "21.0.0",
+    "react-test-renderer": "^16.4.1",
     "relay-compiler": "^1.5.0",
     "style-loader": "^0.21.0",
     "url-loader": "^1.0.1"

@@ -1,15 +1,53 @@
 {
-  "presets": [
-    "next/babel"
-  ],
-  "plugins": [
-    "relay",
-    "transform-flow-comments",
-    ["module-resolver", {
-      "alias": {
-        "^react-native$": "react-native-web"
-      }
-    }],
-    ["import", { "libraryName": "antd", "style": false }]
-  ]
+  "env": {
+    "development": {
+      "presets": ["next/babel"],
+      "plugins": [
+        "relay",
+        "transform-flow-comments",
+        [
+          "module-resolver",
+          {
+            "alias": {
+              "^react-native$": "react-native-web"
+            }
+          }
+        ],
+        ["import", { "libraryName": "antd", "style": false }]
+      ]
+    },
+    "production": {
+      "presets": ["next/babel"],
+      "plugins": [
+        "relay",
+        "transform-flow-comments",
+        [
+          "module-resolver",
+          {
+            "alias": {
+              "^react-native$": "react-native-web"
+            }
+          }
+        ],
+        ["import", { "libraryName": "antd", "style": false }]
+      ]
+    },
+    
+    "test": {
+      "presets": [["next/babel", { "preset-env": { "modules": "commonjs" } }]],
+      "plugins": [
+        "relay",
+        "transform-flow-comments",
+        [
+          "module-resolver",
+          {
+            "alias": {
+              "^react-native$": "react-native-web"
+            }
+          }
+        ],
+        ["import", { "libraryName": "antd", "style": false }]
+      ]
+    }
+  }
 }
