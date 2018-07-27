@@ -1,3 +1,5 @@
+// @flow
+
 const { GraphQLServer, PubSub } = require('graphql-yoga');
 const fetch = require('node-fetch');
 const fs = require('fs');
@@ -25,7 +27,7 @@ const formatFlightData = flights =>
   }));
 
 const updateFlightsCache = (data, pubsub) => {
-  const changedFlights = [];
+  const changedFlights: Array<empty> = [];
   const presentFlightIds = {};
   const removedFlightIds = [];
 
@@ -155,8 +157,9 @@ const server = new GraphQLServer({
   context: { pubsub },
   port,
 });
-server.start(async () => {
+server.start(() => {
   console.log(`Server is running on http://localhost:${port}`);
   // start cache loop
   refreshCache();
+  return null;
 });
