@@ -1,9 +1,11 @@
 [ignore]
 ; We fork some components by platform
 .*/*[.]android.js
+.*/node_modules/config-chain/test/broken.json
+.*/node_modules/@mapbox/jsonlint-lines-primitives/test/fails/*
 
 ; Ignore "BUCK" generated dirs
-<PROJECT_ROOT>/\.buckd/
+<PROJECT_ROOT>/mobile/\.buckd/
 
 ; Ignore unexpected extra "@providesModule"
 .*/node_modules/.*/node_modules/fbjs/.*
@@ -20,12 +22,11 @@
 .*/node_modules/metro/.*
 
 [include]
-../web
 
 [libs]
-node_modules/react-native/Libraries/react-native/react-native-interface.js
-node_modules/react-native/flow/
-node_modules/react-native/flow-github/
+mobile/node_modules/react-native/Libraries/react-native/react-native-interface.js
+mobile/node_modules/react-native/flow/
+mobile/node_modules/react-native/flow-github/
 
 [options]
 module.name_mapper.extension='ico' -> '<PROJECT_ROOT>/flow/ImageModuleStub.js.flow'
@@ -44,9 +45,8 @@ module.system.haste.name_reducers='^\(.*\)\.android$' -> '\1'
 module.system.haste.name_reducers='^\(.*\)\.native$' -> '\1'
 module.system.haste.paths.blacklist=.*/__tests__/.*
 module.system.haste.paths.blacklist=.*/__mocks__/.*
-module.system.haste.paths.blacklist=<PROJECT_ROOT>/node_modules/react-native/Libraries/Animated/src/polyfills/.*
-module.system.haste.paths.whitelist=<PROJECT_ROOT>/node_modules/react-native/Libraries/.*
-module.system.haste.paths.whitelist=<PROJECT_ROOT>../web/*
+module.system.haste.paths.blacklist=<PROJECT_ROOT>/mobile/node_modules/react-native/Libraries/Animated/src/polyfills/.*
+module.system.haste.paths.whitelist=<PROJECT_ROOT>/mobile/node_modules/react-native/Libraries/.*
 
 munge_underscores=true
 
@@ -66,6 +66,3 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe\\($\\|[^(]\\|(\\(<VERSION>\\)? *\\(si
 suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(<VERSION>\\)? *\\(site=[a-z,_]*react_native[a-z,_]*\\)?)\\)?:? #[0-9]+
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
-
-[version]
-^0.77.0

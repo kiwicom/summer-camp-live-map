@@ -4,10 +4,10 @@
 #
 version: 2
 jobs:
-  test-server:
+  test-client:
     docker:
-      - image: circleci/node:9
-    working_directory: ~/summer-camp-live-map/server
+      - image: circleci/node:10
+    working_directory: ~/summer-camp-live-map/client
 
     steps:
       - checkout
@@ -19,18 +19,20 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: yarn install
+      - run: yarn install 
 
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "yarn.lock" }}
 
-      # run tests!
-      # - run: yarn test
+      # run flow
+      - run:
+          name: flow
+          command: yarn flow
 
 workflows:
   version: 2
   tests:
     jobs:
-      - test-server
+      - test-client
