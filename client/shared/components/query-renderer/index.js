@@ -2,21 +2,21 @@
 
 import * as React from 'react';
 import { QueryRenderer } from 'react-relay';
-import { Text, View, ActivityIndicator } from 'react-native'; // eslint-disable-line
+import { Text, View, ActivityIndicator } from 'react-native';
 import styled from 'styled-components';
 import environment from '../../util/environment';
 
-type Props = {|
+type Props<T> = {|
   +query: string,
   +variables?: ?{},
-  +render: (rendererProps: {}) => React.Node,
+  +render: (rendererProps: T) => React.Node,
 |};
 
-type RenderProps = {
+type RenderProps<T> = {
   +error: {
     message: string,
   },
-  props: {},
+  props: T,
 };
 
 const SpinnerContainer = styled(View)`
@@ -25,13 +25,13 @@ const SpinnerContainer = styled(View)`
   height: 100%;
 `;
 
-export default function AppQueryRenderer(props: Props): React.Node {
+export default function AppQueryRenderer<T>(props: Props<T>): React.Node {
   return (
     <QueryRenderer
       {...props}
       environment={environment}
       variables={props.variables || {}}
-      render={({ error, props: rendererProps }: RenderProps) => {
+      render={({ error, props: rendererProps }: RenderProps<T>) => {
         if (error) {
           return <Text>{error.message}</Text>;
         }

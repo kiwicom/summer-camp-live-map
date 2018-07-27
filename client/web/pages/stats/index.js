@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from 'react';
-import { Text } from 'react-native'; // eslint-disable-line
+import { Text } from 'react-native';
 import App from 'shared/containers/app';
 import { createStatsContainer } from 'shared/containers/stats';
 import { Nationalities } from 'shared/components/stats';
@@ -19,7 +19,7 @@ const StatsView = ({ data }: Props) => (
     <Header>Top countries</Header>
     <Nationalities
       data={data}
-      Progress={item => <Progress percent={item.percent} showInfo={false} />}
+      Progress={props => <Progress percent={props.percent} showInfo={false} />}
     />
     <InfoRow data={data} />
   </>

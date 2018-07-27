@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import type { MapType } from 'mapbox-gl';
+import { type MapComponentProps } from 'shared/containers/map';
 import StatsButton from 'shared/components/StatsButton';
 
 export const Map = styled.div`
@@ -13,15 +14,7 @@ export const Map = styled.div`
 // Used to satisfy the button's `onPress` property requirement
 const fn = () => {};
 
-type Props = {|
-  +token: string,
-  +featureCollection: {},
-  +zoomLevel: number,
-  +centerCoordinate: [number, number],
-  +icon: string,
-  +styleURL: string,
-|};
-class MapView extends Component<Props> {
+class MapView extends Component<MapComponentProps> {
   mapRef = React.createRef();
   map: MapType;
 
